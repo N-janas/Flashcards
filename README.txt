@@ -2,17 +2,8 @@
 
 a
 b
-hello
-world
-1
-22
-333
-4444
 c
 d
-akkkkkkkkk
-kkkkkkke
-lllls
 e
 f
 g
@@ -21,10 +12,6 @@ i
 j
 k
 l
-something
-aaaaaaa
-sdfsdfs
-fgsdfgdsf
 m
 n
 o
