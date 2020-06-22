@@ -1,9 +1,7 @@
 >insert some important info here<
 
 a
-b
-c
-d
+borbi
 e
 f
 g
