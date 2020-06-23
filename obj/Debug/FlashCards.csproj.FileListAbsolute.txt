@@ -1,0 +1,14 @@
+C:\VSC Projects\C#\POiG\FlashCards\bin\Debug\FlashCards.exe.config
+C:\VSC Projects\C#\POiG\FlashCards\bin\Debug\FlashCards.exe
+C:\VSC Projects\C#\POiG\FlashCards\bin\Debug\FlashCards.pdb
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.csprojAssemblyReference.cache
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\App.g.cs
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards_MarkupCompile.cache
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards_MarkupCompile.lref
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.g.resources
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.Properties.Resources.resources
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.csproj.GenerateResource.cache
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.exe
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.pdb
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\MainWindow.g.cs
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\MainWindow.baml
