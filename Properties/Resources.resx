@@ -121,6 +121,10 @@
     <value>INSERT INTO 'users' ('Name', 'Surname') VALUES</value>
     <comment>dopisanie nowego użytkownika aplikacji</comment>
   </data>
+  <data name="add_word_knowledge" xml:space="preserve">
+    <value>INSERT INTO 'wordknowledge' ('ID_Word_Front', 'ID_Word_Back', 'ID_User', 'Knowledge') VALUES</value>
+    <comment>dodanie nowego poziomu znajomosci</comment>
+  </data>
   <data name="all_langs" xml:space="preserve">
     <value>SELECT * FROM languages</value>
     <comment>pobranie języków</comment>
@@ -128,5 +132,17 @@
   <data name="all_users" xml:space="preserve">
     <value>SELECT * FROM users</value>
     <comment>pobranie użytkowników aplikacji</comment>
+  </data>
+  <data name="all_words" xml:space="preserve">
+    <value>SELECT * FROM word</value>
+    <comment>pobieranie dostepnych słów</comment>
+  </data>
+  <data name="all_word_knowledge" xml:space="preserve">
+    <value>SELECT * FROM wordknowledge</value>
+    <comment>pobieranie znajomości użytkowników</comment>
+  </data>
+  <data name="edit_word_knowledge" xml:space="preserve">
+    <value />
+    <comment>zaktualizowanie poziomu znajomosci</comment>
   </data>
 </root>

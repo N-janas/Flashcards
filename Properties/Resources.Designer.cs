@@ -70,6 +70,15 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO &apos;wordknowledge&apos; (&apos;ID_Word_Front&apos;, &apos;ID_Word_Back&apos;, &apos;ID_User&apos;, &apos;Knowledge&apos;) VALUES.
+        /// </summary>
+        internal static string add_word_knowledge {
+            get {
+                return ResourceManager.GetString("add_word_knowledge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu SELECT * FROM languages.
         /// </summary>
         internal static string all_langs {
@@ -84,6 +93,33 @@ namespace FlashCards.Properties {
         internal static string all_users {
             get {
                 return ResourceManager.GetString("all_users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu SELECT * FROM wordknowledge.
+        /// </summary>
+        internal static string all_word_knowledge {
+            get {
+                return ResourceManager.GetString("all_word_knowledge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu SELECT * FROM word.
+        /// </summary>
+        internal static string all_words {
+            get {
+                return ResourceManager.GetString("all_words", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu .
+        /// </summary>
+        internal static string edit_word_knowledge {
+            get {
+                return ResourceManager.GetString("edit_word_knowledge", resourceCulture);
             }
         }
     }

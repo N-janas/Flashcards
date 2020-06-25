@@ -30,7 +30,20 @@ namespace FlashCards.DAL.Zbiory
             return users;
         }
 
-        // Dodaj usera
+        public static bool AddNewUser(User u)
+        {
+            bool state = false;
+            using(var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand cmd = new MySqlCommand($"{query.add_user} {u.ToInsert()}", connection);
+                connection.Open();
+                var id = cmd.ExecuteNonQuery();
+                state = true;
+                u.Id = (sbyte)cmd.LastInsertedId;
+                connection.Close();
+            }
+            return state;
+        }
         #endregion
 
     }
