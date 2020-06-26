@@ -36,6 +36,15 @@ namespace FlashCards.DAL.Encje
         {
             return $"('{Name}', '{Surname}')";
         }
+
+        public override bool Equals(object obj)
+        {
+            var user = obj as User;
+            if (user is null) return false;
+            if (Name.ToLower() != user.Name.ToLower()) return false;
+            if (Surname.ToLower() != user.Surname.ToLower()) return false;
+            return true;
+        }
         #endregion
     }
 }

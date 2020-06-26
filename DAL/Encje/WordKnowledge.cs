@@ -40,6 +40,17 @@ namespace FlashCards.DAL.Encje
         {
             return $"({Id_word_front}, {Id_word_back}, {Id_user}, {Knowledge})";
         }
+
+        // TMP Equals ??
+        public override bool Equals(object obj)
+        {
+            var wk = obj as WordKnowledge;
+            if (wk is null) return false;
+            if (Id_word_front != wk.Id_word_front) return false;
+            if (Id_word_back != wk.Id_word_back) return false;
+            if (Id_user != wk.Id_user) return false;
+            return true;
+        }
         #endregion
     }
 }
