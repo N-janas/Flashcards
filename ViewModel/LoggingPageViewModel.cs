@@ -144,17 +144,27 @@ namespace FlashCards.ViewModel
                     _addUser = new RelayCommand(
                         arg =>
                         {
-                            if (model.AddUserToUsers(Imie, Nazwisko))
+                            bool IsImieValid = !(string.IsNullOrEmpty(Imie.Trim()));
+                            bool IsNazwiskoValid = !(string.IsNullOrEmpty(Nazwisko.Trim()));
+
+                            if (IsImieValid && IsNazwiskoValid)
                             {
-                                ClearForm();
-                                System.Windows.MessageBox.Show("Użytkownik dodany");
+                                // Tworzony potem user więc trim jest wewnątrz
+                                if (model.AddUserToUsers(Imie, Nazwisko))
+                                {
+                                    ClearForm();
+                                    System.Windows.MessageBox.Show("Użytkownik dodany");
+                                }
+                                else
+                                {
+                                    System.Windows.MessageBox.Show("Użytkownik już istnieje");
+                                }
                             }
                             else
-                            {
-                                System.Windows.MessageBox.Show("Użytkownik już istnieje");
-                            }
+                                System.Windows.MessageBox.Show("Niepoprawne dane");
+
                         },
-                        arg => (Imie != "") & (Nazwisko != "")
+                        arg => true
                         );
                 }
                 return _addUser;
@@ -173,20 +183,30 @@ namespace FlashCards.ViewModel
                     _zalogujIDodaj = new RelayCommand(
                         arg =>
                         {
-                            if (model.AddUserToUsers(Imie, Nazwisko))
+                            bool IsImieValid = !(string.IsNullOrEmpty(Imie.Trim()));
+                            bool IsNazwiskoValid = !(string.IsNullOrEmpty(Nazwisko.Trim()));
+
+                            if(IsNazwiskoValid && IsImieValid)
                             {
-                                sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
-                                if (userTrial != null)
+                                // Tworzony potem user więc trim jest wewnątrz
+                                if (model.AddUserToUsers(Imie, Nazwisko))
                                 {
-                                    Mediator.Notify("GoToTabsPage", userTrial);
+                                    sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
+                                    if (userTrial != null)
+                                    {
+                                        Mediator.Notify("GoToTabsPage", userTrial);
+                                    }
+                                }
+                                else
+                                {
+                                    System.Windows.MessageBox.Show("Użytkownik już istnieje");
                                 }
                             }
                             else
-                            {
-                                System.Windows.MessageBox.Show("Użytkownik już istnieje");
-                            }
+                                System.Windows.MessageBox.Show("Niepoprawne dane");
+
                         },
-                        arg => (Imie != "") & (Nazwisko != "")
+                        arg => true
                         );
                 }
                 return _zalogujIDodaj;
@@ -205,15 +225,24 @@ namespace FlashCards.ViewModel
                     _zaloguj = new RelayCommand(
                        arg =>
                        {
-                           sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
-                           if (userTrial != null)
+                           bool IsImieValid = !(string.IsNullOrEmpty(Imie.Trim()));
+                           bool IsNazwiskoValid = !(string.IsNullOrEmpty(Nazwisko.Trim()));
+
+                           if (IsNazwiskoValid && IsImieValid)
                            {
-                               Mediator.Notify("GoToTabsPage", userTrial);
+                               // Tworzony potem user więc trim jest wewnątrz
+                               sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
+                               if (userTrial != null)
+                               {
+                                   Mediator.Notify("GoToTabsPage", userTrial);
+                               }
+                               else
+                               {
+                                   System.Windows.MessageBox.Show("Użytkownik nie istnieje");
+                               }
                            }
                            else
-                           {
-                               System.Windows.MessageBox.Show("Użytkownik nie istnieje");
-                           }
+                               System.Windows.MessageBox.Show("Niepoprawne dane");
                        },
                        arg => true
                     );
