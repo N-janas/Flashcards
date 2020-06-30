@@ -26,15 +26,24 @@ namespace FlashCards.DAL.Encje
         public User(string name, string surname)
         {
             Id = null;
-            Name = name;
-            Surname = surname;
+            Name = name.Trim();
+            Surname = surname.Trim();
         }
         #endregion
 
         #region Metody
+        public override string ToString()
+        {
+            return $"{Name} {Surname}";
+        }
+
         public string ToInsert()
         {
             return $"('{Name}', '{Surname}')";
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public override bool Equals(object obj)

@@ -61,7 +61,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO &apos;users&apos; (&apos;Name&apos;, &apos;Surname&apos;) VALUES.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `users` (`Name`, `Surname`) VALUES.
         /// </summary>
         internal static string add_user {
             get {
@@ -70,7 +70,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO &apos;wordknowledge&apos; (&apos;ID_Word_Front&apos;, &apos;ID_Word_Back&apos;, &apos;ID_User&apos;, &apos;Knowledge&apos;) VALUES.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `wordknowledge` (`ID_Word_Front`, `ID_Word_Back`, `ID_User`, `Knowledge`) VALUES.
         /// </summary>
         internal static string add_word_knowledge {
             get {

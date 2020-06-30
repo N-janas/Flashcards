@@ -38,13 +38,13 @@ namespace FlashCards.DAL.Zbiory
                 connection.Open();
                 var id = cmd.ExecuteNonQuery();
                 state = true;
-                wk.Id = (sbyte)cmd.LastInsertedId;
+                wk.Id = (long)cmd.LastInsertedId; // long? hmm ?
                 connection.Close();
             }
             return state;
         }
 
-        public static bool EditWordKnowledge(WordKnowledge wk, long idWk)
+        public static bool EditWordKnowledge(WordKnowledge wk, long? idWk)
         {
             bool state = false;
             using(var connection = DBConnection.Instance.Connection)

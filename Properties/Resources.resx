@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_user" xml:space="preserve">
-    <value>INSERT INTO 'users' ('Name', 'Surname') VALUES</value>
+    <value>INSERT INTO `users` (`Name`, `Surname`) VALUES</value>
     <comment>dopisanie nowego użytkownika aplikacji</comment>
   </data>
   <data name="add_word_knowledge" xml:space="preserve">
-    <value>INSERT INTO 'wordknowledge' ('ID_Word_Front', 'ID_Word_Back', 'ID_User', 'Knowledge') VALUES</value>
+    <value>INSERT INTO `wordknowledge` (`ID_Word_Front`, `ID_Word_Back`, `ID_User`, `Knowledge`) VALUES</value>
     <comment>dodanie nowego poziomu znajomosci</comment>
   </data>
   <data name="all_langs" xml:space="preserve">
