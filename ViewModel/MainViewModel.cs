@@ -83,6 +83,7 @@ namespace FlashCards.ViewModel
             // Przełączenie contentu
             ChangeViewModel(Vms[1]);
         }
+        
         #endregion
     }
 }
