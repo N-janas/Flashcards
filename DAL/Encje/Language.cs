@@ -23,7 +23,10 @@ namespace FlashCards.DAL.Encje
         #endregion
 
         #region Metody
-
+        public override string ToString()
+        {
+            return $"{LangName}";
+        }
         #endregion
     }
 }
