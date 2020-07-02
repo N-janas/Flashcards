@@ -82,16 +82,9 @@ namespace FlashCards.Model
             return false;
         }
         
-        // 2 opcje
-        // 1: trzymanie filtrow w modelu i szukanie od nich ( z, na, diff)
-        // 2: funkcje w modelu przyjmujące te 3 argsy
-        
-
-        // Po wciśnięciu trenuj (czy nie observable hmm ????????)
-        // Shuffle (pierwsze ułóż te z Knowledge level = 0)
         public List<Word> PassWordCollection(sbyte word_id, sbyte translation_id, string difficulty)
         {
-            // Dodawnie słów powiązanych z językiem 1 i 2
+            // Dodawnie słów powiązanych z dwoma wybranymi językami
             List<Word> randomWords = new List<Word>();
             foreach (var word in Words)
             {
@@ -123,21 +116,19 @@ namespace FlashCards.Model
             return null;
         }
 
-        // Koncept podajemy do VM performance usera i uczymy go ile user chce (po sesji aktualizacja w bazie [zmiana częstotliwości słów])
-        public ObservableCollection<WordKnowledge> PassUserPerformance(sbyte user_id, sbyte word_id, sbyte translation_id)
+        public ObservableCollection<WordKnowledge> PassUserPerformance(sbyte user_id, sbyte langA, sbyte langB)
         {
             ObservableCollection<WordKnowledge> currentUserPerformance = new ObservableCollection<WordKnowledge>();
-            // Załaduj zgodnie z knowledge 
-            // if new user(none wpisów) then send empty
-            // Ładuj performance if user_id i języki wybrane i inverse(języki wybrane)
-            sbyte minLang = Math.Min(word_id, translation_id);
-            sbyte maxLang = Math.Max(word_id, translation_id);
+            // Wybierz języki w kolejności mniejszy na wiekszy
+            // Czyli PL -> ANG (1, 5)
+            // to ANG -> PL nadal (1, 5)
+
+            sbyte minLang = Math.Min(langA, langB);
+            sbyte maxLang = Math.Max(langA, langB);
 
             foreach (var wk in WordKnowledges)
             {
-                // Podczas pobierania istniejacych krotek chcemy aby niższe poziomy były zduplikowane odpowiednio więcej razy
-                // ponieważ w vm będzie tasowanie i w zbiorze będzie większa szansa na trafienie tych których jeszcze nie potrafimy
-                // bo będzie ich odpowiednio więcej
+                // if user_id = user_id and smallLang = word.(small)Lang_id and bigLang = word.(big)Lang_id 
                 if (wk.Id_user == user_id && minLang == FindWordById(wk.Id_word_front).Id_lang && maxLang == FindWordById(wk.Id_word_back).Id_lang)
                 {
                     currentUserPerformance.Add(wk);
@@ -146,11 +137,7 @@ namespace FlashCards.Model
             return currentUserPerformance;
         }
 
-
         public bool WordKnowledgeExists(WordKnowledge wk) => WordKnowledges.Contains(wk); 
-        // UPDperfSet może byc pusty , same nowe , nowe i updated - do delete koment
-        // Chyba DONE
-        // Dodawanie WK przez SetOf...AddWordKnowledge dodaje last inserted index czy jak nie bylo zadnego indexu (empty list) to doda
 
         public bool UpdateWordKnowledge(ObservableCollection<WordKnowledge> updatedPerfSet)
         {

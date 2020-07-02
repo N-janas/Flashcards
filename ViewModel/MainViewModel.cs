@@ -57,12 +57,15 @@ namespace FlashCards.ViewModel
 
             Vms.Add(LoginPage);
             Vms.Add(TabPage);
+            // Add(new Objcet) - dodanie placeholdera ( zapełnienie indexu)
+            // i potem w GoTo tworzenie nowego obiektu vm'a treningowego
 
             this._actualViewModel = LoginPage; // Starter VM
 
             Mediator.Subscribe("GoToTabsPage", GoToTabsScreen);
             // Mediator logout 
-            // Mediator train
+            // Mediator train1
+            // Mediator train2
 
         }
 
