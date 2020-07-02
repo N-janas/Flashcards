@@ -94,7 +94,6 @@
     <Compile Include="Model\Model.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
-    <Compile Include="ViewModel\Queue.cs" />
     <Compile Include="View\Tabs.xaml.cs">
       <DependentUpon>Tabs.xaml</DependentUpon>
     </Compile>
