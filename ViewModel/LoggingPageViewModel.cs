@@ -22,7 +22,6 @@ namespace FlashCards.ViewModel
         private User _selectedUserFromList;
         private string _imie;
         private string _nazwisko;
-        private sbyte? _currentUser;
         private ObservableCollection<User> _listOfUsers = null;
         #endregion
 
@@ -35,8 +34,6 @@ namespace FlashCards.ViewModel
             // Not null
             this._imie = "";
             this._nazwisko = "";
-            //this._imie = "Pablo";
-            //this._nazwisko = "Wpisz nazwisko";
         }
         public LoggingPageViewModel()
         {
@@ -73,25 +70,6 @@ namespace FlashCards.ViewModel
         #endregion
 
         #region Metody
-
-        private void SignInAndAdd(object obj)
-        {
-            //System.Windows.Application.Current.MainWindow.DataContext = new MainViewModel(model);
-        }
-        private void SignIn(object obj)
-        {
-            this._currentUser = this.model.PassUserIdIfExists(this._imie, this._nazwisko);
-            System.Windows.Application.Current.MainWindow.DataContext = new LanguagesTabViewModel(model);
-            //System.Windows.Application.Current.MainWindow.Content = new LanguagesTabViewModel(model);
-            if (this._currentUser != null)
-            {
-                //Console.WriteLine("");
-                //System.Windows.Application.Current.MainWindow.DataContext = new LanguagesTabViewModel(model,this._currentUser);
-                //new FlashCardsTabViewModel
-            }
-
-        }
-
         private void ClearForm()
         {
             Imie = "";

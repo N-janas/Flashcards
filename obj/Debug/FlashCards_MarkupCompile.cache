@@ -4,17 +4,21 @@
 winexe
 C#
 .cs
-C:\Users\admin\source\repos\Fiszki\obj\Debug\
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\
 FlashCards
 none
 false
 DEBUG;TRACE
-C:\Users\admin\source\repos\Fiszki\App.xaml
+C:\VSC Projects\C#\POiG\FlashCards\App.xaml
 32142244768
 
 27628892714
+<<<<<<< HEAD
 1271533361047
+=======
+127249653921
+>>>>>>> 7c6354abbf97dcba5284d35044ab008ec72a10eb
 View\LoggingPage.xaml;View\MainWindow.xaml;View\Tabs.xaml;
 
-True
+False
 

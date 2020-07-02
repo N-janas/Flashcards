@@ -12,11 +12,6 @@ namespace FlashCards.Model
 
     class Model
     {
-        #region Własności 
-        // DO delete !~!!!!!!!
-        public sbyte? CurrentUser { get; set; } = null;
-        #endregion
-
         #region List Danych
         public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
         public ObservableCollection<Language> Langs { get; set; } = new ObservableCollection<Language>();
@@ -43,6 +38,20 @@ namespace FlashCards.Model
         }
 
         #region Metody
+        public List<string> PassDifficulties()
+        {
+            HashSet<string> distinctDiffs = new HashSet<string>();
+            // Bezpiecznie można ściągać z Words, ponieważ jak słowo w danym języku ma klase A1
+            // to jego tłumaczenia mają tą samą klasę, więc nie istnieje możliwość braku jakiejś klasy w comboBox'ie
+            // dla dowolnych dwóch języków
+            foreach (var word in Words)
+            {
+                distinctDiffs.Add(word.Difficulty);
+            }
+
+            return distinctDiffs.ToList<string>();
+        }
+
         public bool PersonExists(User user) => Users.Contains(user);
 
         // Jesli można zalogować to zwróć id user i podłącz go
