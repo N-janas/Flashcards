@@ -35,3 +35,40 @@ C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\App.baml
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LoggingPage.baml
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\Tabs.baml
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\FlashCards.csproj.CopyComplete
+C:\Users\admin\source\repos\Fiszki\bin\Debug\FlashCards.exe.config
+C:\Users\admin\source\repos\Fiszki\bin\Debug\FlashCards.exe
+C:\Users\admin\source\repos\Fiszki\bin\Debug\FlashCards.pdb
+C:\Users\admin\source\repos\Fiszki\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\MySqlConnector.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Buffers.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Memory.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\admin\source\repos\Fiszki\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\MySqlConnector.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Buffers.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Memory.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\admin\source\repos\Fiszki\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LoggingPage.g.cs
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\MainWindow.g.cs
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\Tabs.g.cs
+C:\Users\admin\source\repos\Fiszki\obj\Debug\App.g.cs
+C:\Users\admin\source\repos\Fiszki\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards_MarkupCompile.cache
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards_MarkupCompile.lref
+C:\Users\admin\source\repos\Fiszki\obj\Debug\App.baml
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LoggingPage.baml
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\MainWindow.baml
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\Tabs.baml
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.g.resources
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.Properties.Resources.resources
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.csproj.GenerateResource.cache
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.csproj.CopyComplete
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.exe
+C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.pdb
