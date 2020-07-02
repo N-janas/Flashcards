@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add_deck" xml:space="preserve">
+    <value />
+    <comment>dodanie talii</comment>
+  </data>
+  <data name="add_flip_card" xml:space="preserve">
+    <value />
+    <comment>dodanie fiszki</comment>
+  </data>
+  <data name="add_flip_card_knowledge" xml:space="preserve">
+    <value>INSERT INTO 'flipcardknowledge' ('ID_User', 'ID_FlipCard', 'Knowledge') VALUES</value>
+    <comment>dodanie znajomości fiszki</comment>
+  </data>
   <data name="add_user" xml:space="preserve">
     <value>INSERT INTO `users` (`Name`, `Surname`) VALUES</value>
     <comment>dopisanie nowego użytkownika aplikacji</comment>
@@ -124,6 +136,18 @@
   <data name="add_word_knowledge" xml:space="preserve">
     <value>INSERT INTO `wordknowledge` (`ID_Word_Front`, `ID_Word_Back`, `ID_User`, `Knowledge`) VALUES</value>
     <comment>dodanie nowego poziomu znajomosci</comment>
+  </data>
+  <data name="all_decks" xml:space="preserve">
+    <value>SELECT * FROM deck</value>
+    <comment>pobranie talii</comment>
+  </data>
+  <data name="all_flip_cards" xml:space="preserve">
+    <value>SELECT * FROM flipcard</value>
+    <comment>pobranie fiszek</comment>
+  </data>
+  <data name="all_flip_card_knowledge" xml:space="preserve">
+    <value>SELECT * FROM flipcardknowledge</value>
+    <comment>pobranie znajomości fiszek</comment>
   </data>
   <data name="all_langs" xml:space="preserve">
     <value>SELECT * FROM languages</value>
@@ -140,6 +164,14 @@
   <data name="all_word_knowledge" xml:space="preserve">
     <value>SELECT * FROM wordknowledge</value>
     <comment>pobieranie znajomości użytkowników</comment>
+  </data>
+  <data name="edit_flip_card" xml:space="preserve">
+    <value />
+    <comment>zaktualizowanie fiszki</comment>
+  </data>
+  <data name="edit_flip_card_knowledge" xml:space="preserve">
+    <value />
+    <comment>zaktualizowanie poziomu znajomości fiszki</comment>
   </data>
   <data name="edit_word_knowledge" xml:space="preserve">
     <value />

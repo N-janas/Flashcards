@@ -82,10 +82,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\Encje\Deck.cs" />
+    <Compile Include="DAL\Encje\FlipCard.cs" />
+    <Compile Include="DAL\Encje\FlipCardKnowledge.cs" />
     <Compile Include="DAL\Encje\Language.cs" />
     <Compile Include="DAL\Encje\User.cs" />
     <Compile Include="DAL\Encje\Word.cs" />
     <Compile Include="DAL\Encje\WordKnowledge.cs" />
+    <Compile Include="DAL\Zbiory\SetOfDecks.cs" />
+    <Compile Include="DAL\Zbiory\SetOfFlipCardKnowledges.cs" />
+    <Compile Include="DAL\Zbiory\SetOfFlipCards.cs" />
     <Compile Include="DAL\Zbiory\SetOfLanguages.cs" />
     <Compile Include="DAL\Zbiory\SetOfUsers.cs" />
     <Compile Include="DAL\Zbiory\SetOfWordKnwoledges.cs" />
