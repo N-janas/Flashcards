@@ -10,11 +10,61 @@
     
     <Grid DataContext="{StaticResource sharedViewModel}">
         <TabControl>
-            <TabItem>
-                <Label Content="{Binding TabPage.LangTabVM.LoggedUser}" HorizontalAlignment="Center" FontSize="30"/>
+            <TabItem Header=" Języki ">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="11*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
+                        <!-- TITLE -->
+                        <Label Content="Trening (predefiniowanych) języków" HorizontalAlignment="Center" FontSize="25" Margin="20"/>
+
+                        <!-- Controls -->
+                        <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Z column and logout button -->
+                            <StackPanel Grid.Column="0">
+                                <Label Content="Z:" HorizontalAlignment="Center"/>
+                                <ComboBox Margin="30,10,30,10"/>
+                            </StackPanel>
+
+                            <!-- Difficulty column and TRAIN button -->
+                            <StackPanel Grid.Column="1">
+                                <Label Content="Trudność:" HorizontalAlignment="Center"/>
+                                <ComboBox Margin="65,10,65,10"/>
+
+                                <Button Content="Trenuj" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                Margin="50" Height="30">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="7"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                            </StackPanel>
+
+                            <!-- Na column -->
+                            <StackPanel Grid.Column="2">
+                                <Label Content="Na:" HorizontalAlignment="Center"/>
+                                <ComboBox  Margin="30,10,30,10"/>
+                            </StackPanel>
+                        </Grid>
+                        
+                    </StackPanel>
+
+                    <Button Content="Wyloguj" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="60" />
+                </Grid>
+
             </TabItem>
 
-            <TabItem>
+            <TabItem Header=" Fiszki ">
 
             </TabItem>
         </TabControl>

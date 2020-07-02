@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:FlashCards"
         xmlns:vm="clr-namespace:FlashCards.ViewModel"
         mc:Ignorable="d"
+        MinWidth="700"
+        MinHeight="450"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Frame x:Name="Main"/>
