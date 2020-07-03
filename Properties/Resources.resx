@@ -126,7 +126,7 @@
     <comment>dodanie fiszki</comment>
   </data>
   <data name="add_flip_card_knowledge" xml:space="preserve">
-    <value>INSERT INTO 'flipcardknowledge' ('ID_User', 'ID_FlipCard', 'Knowledge') VALUES</value>
+    <value>INSERT INTO `flipcardknowledge` (`ID_User`, `ID_FlipCard`, `Knowledge`) VALUES</value>
     <comment>dodanie znajomości fiszki</comment>
   </data>
   <data name="add_user" xml:space="preserve">

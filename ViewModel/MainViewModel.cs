@@ -79,6 +79,8 @@ namespace FlashCards.ViewModel
             Mediator.Subscribe("Logout", BackToLoginPage);
             // Mediator train1
             Mediator.Subscribe("TrainLangs", TrainPredefinedLangs);
+            // Mediator GoBack from train1
+            Mediator.Subscribe("BackFromTrain1", GoBackFromTrainLang);
             // Mediator train2
 
         }
@@ -118,11 +120,19 @@ namespace FlashCards.ViewModel
                 daneTreningowe[0].Cast<Word>().ToList(),
                 daneTreningowe[1].Cast<Word>().ToList(),
                 daneTreningowe[2].Cast<FrontBack>().ToList(),
-                TabPage.LoggedUser
+                TabPage.LoggedUser,
+                TabPage.LangTabVM.SelectedLangZ.LangName,
+                TabPage.LangTabVM.SelectedLangNa
                 );
             ChangeViewModel(Vms[2]);
         }
-        
+
+        private void GoBackFromTrainLang(object obj)
+        {
+            // Powrót do ekranu zakładek
+            ChangeViewModel(Vms[1]);
+        }
+
         #endregion
     }
 }

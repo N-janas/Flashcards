@@ -10,7 +10,7 @@ namespace FlashCards.DAL.Encje
     class Word : TrainData
     {
         #region Własności
-        public int Id { get; set; }
+        public uint Id { get; set; }
         public string WordName { get; set; }
         public sbyte Id_lang { get; set; }
         public string Difficulty { get; set; }
@@ -20,7 +20,7 @@ namespace FlashCards.DAL.Encje
         #region Konstruktory
         public Word(MySqlDataReader reader)
         {
-            Id = int.Parse(reader["ID"].ToString());
+            Id = uint.Parse(reader["ID"].ToString());
             WordName = reader["Word"].ToString();
             Id_lang = sbyte.Parse(reader["ID_Language"].ToString());
             Difficulty = reader["Difficulty"].ToString();

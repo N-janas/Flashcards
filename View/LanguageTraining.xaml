@@ -8,17 +8,25 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:vm="clr-namespace:FlashCards.ViewModel"
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
+    <UserControl.Resources>
+        <vm:BooleanToVisibilityConverter x:Key="converterVisibility"/>
+    </UserControl.Resources>
+
     <Grid Background="White" DataContext="{StaticResource sharedViewModel}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="4*"/>
+                <RowDefinition Height="1.8*"/>
             </Grid.RowDefinitions>
 
+            <!-- Tytuł -->
+                <Label Grid.Row="0" Content="{Binding LangTrain.Title}" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
             <!-- Pytanie i odpowiedź -->
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="{Binding LangTrain.Question}" FontSize="24" HorizontalAlignment="Center"/>
@@ -26,12 +34,18 @@
                       X2="500" Y2="0"
                       Stroke="Black"
                       StrokeThickness="2.5"/>
-                <Label Content="{Binding LangTrain.Answer}" FontSize="24" HorizontalAlignment="Center"/>
+                <Label Content="{Binding LangTrain.Answer}" FontSize="24" HorizontalAlignment="Center"
+                       Visibility="{Binding LangTrain.IsUserRating, Converter={StaticResource converterVisibility}}"/>
             </StackPanel>
+            
+            <!-- Inne tłumaczenia -->
+            <Label Content="{Binding LangTrain.OtherTranslations}" Foreground="Gray" HorizontalAlignment="Center" Grid.Row="2"
+                   Visibility="{Binding LangTrain.IsUserRating, Converter={StaticResource converterVisibility}}"/>
 
             <!-- Pokazanie odpowiedzi -->
-            <Button Content="Pokaż odpowiedź" FontSize="17" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Width="145" Height="30" Command="{Binding LangTrain.ShowAnswer}">
+            <Button Content="Pokaż odpowiedź" FontSize="17" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="145" Height="30" Command="{Binding LangTrain.ShowAnswer}" 
+                    Visibility="{Binding LangTrain.IsUserGuessing, Converter={StaticResource converterVisibility}}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="6"/>
@@ -39,10 +53,11 @@
                 </Button.Resources>
             </Button>
 
-            <Label Content="Jak ci poszło ?" FontSize="17" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Label Content="Jak ci poszło ?" FontSize="17" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                   Visibility="{Binding LangTrain.IsUserRating, Converter={StaticResource converterVisibility}}"/>
 
             <!-- Przyciski od aktualizacji -->
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="5" Visibility="{Binding LangTrain.IsUserRating, Converter={StaticResource converterVisibility}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -59,7 +74,10 @@
                         Command="{Binding LangTrain.GrantPlusThree}"/>
 
             </Grid>
-
+            
+            <!-- Przycisk powrotu -->
+            <Button Content="Powrót" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" FontSize="15" Command="{Binding LangTrain.GoBack}"/>
+            
         </Grid>
     </Grid>
 </UserControl>

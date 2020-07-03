@@ -67,8 +67,8 @@
                         
                     </StackPanel>
 
-                    <Button Content="Wyloguj" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="60"
-                            Command="{Binding TabPage.LangTabVM.Logout}"/>
+                    <Button Content="Wyloguj" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" FontSize="15"
+                            Command="{Binding TabPage.LangTabVM.Logout}" Margin="-3,0,0,-3"/>
                 </Grid>
 
             </TabItem>

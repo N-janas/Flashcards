@@ -101,6 +101,7 @@
     <Compile Include="Model\Model.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
+    <Compile Include="ViewModel\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModel\LanguageTrainingVM.cs" />
     <Compile Include="View\LanguageTraining.xaml.cs">
       <DependentUpon>LanguageTraining.xaml</DependentUpon>

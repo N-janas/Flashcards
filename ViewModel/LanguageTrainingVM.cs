@@ -17,23 +17,36 @@ namespace FlashCards.ViewModel
     {
         #region Pola Prywatne
         private Model model = null;
-        private string question;
-        private string answer;
+        private Word question;
+        private Word answer;
         private List<Word> questions = null;
         private List<Word> answers = null;
         private List<FrontBack> _frontBack = null;
         private List<WordKnowledge> performance = null;
         private sbyte? user = null;
+        private Language _translation;
+        private string otherTranslations;
+        // Parametr do iteracji (nieskończona sesja = użytkownik stopuje)
+        private int iter = 0;
+        // Domyślny stan okna
+        private bool isUserGuessing = true;
+        private bool isUserRating = false;
         #endregion
 
         #region Własności
-        public string Question
+        public string OtherTranslations
+        {
+            get { return otherTranslations; }
+            set { otherTranslations = value; onPropertyChanged(nameof(OtherTranslations)); }
+        }
+
+        public Word Question
         {
             get { return question; }
             set { question = value; onPropertyChanged(nameof(Question)); }
         }
 
-        public string Answer
+        public Word Answer
         {
             get { return answer; }
             set { answer = value; onPropertyChanged(nameof(Answer)); }
@@ -62,6 +75,19 @@ namespace FlashCards.ViewModel
             get { return performance; }
             set { performance = value; onPropertyChanged(nameof(Performance)); }
         }
+
+        public bool IsUserGuessing
+        {
+            get { return isUserGuessing; }
+            set { isUserGuessing = value; onPropertyChanged(nameof(isUserGuessing)); }
+        }
+
+        public bool IsUserRating
+        {
+            get { return isUserRating; }
+            set { isUserRating = value; onPropertyChanged(nameof(IsUserRating)); }
+        }
+        public string Title { get; set; }
         #endregion
 
         #region Konstruktory
@@ -70,7 +96,7 @@ namespace FlashCards.ViewModel
             // Initialize only
         }
 
-        public LanguageTrainingVM(Model model, List<Word> questions, List<Word> answers, List<FrontBack> fronBack, sbyte? id_user)
+        public LanguageTrainingVM(Model model, List<Word> questions, List<Word> answers, List<FrontBack> fronBack, sbyte? id_user, string langA, Language langB)
         {
             this.model = model;
             Questions = questions;
@@ -81,16 +107,60 @@ namespace FlashCards.ViewModel
             // czestotliwości pojawiania się słów po zakończonej sesji treningowej
             Performance = new List<WordKnowledge>();
             user = id_user;
-            question = "";
-            answer = "";
+            Title = langA+" -> "+langB.LangName;
+            _translation = langB;
+            GetNewWord();
         }
         #endregion
 
         #region Metody
-        private void Loaded_Test(Object sender, EventArgs e)
+        private static Random random = new Random();
+        private List<Word> Shuffle(List<Word> list)
         {
-            Console.WriteLine("TEST");
+            for (int n = list.Count - 1; n > 1; n--)
+            {
+                int rng = random.Next(n + 1);
+                Word value = list[rng];
+                list[rng] = list[n];
+                list[n] = value;
+            }
+            return list;
         }
+
+        private void GetNewWord()
+        {
+            // Wpisanie przykładu do zgadnięcia
+            Question = Questions[iter++];
+            Answer = FindAnswerByGUID(Question);
+
+            // Jeśli przekraczamy poza tabele, wróć z indeksem i przelosuj przykłady
+            if (iter > Questions.Count-1)
+            {
+                iter = 0;
+                Questions = Shuffle(Questions);
+            }
+
+        }
+
+        private List<Word> FindOtherMeanings(Word origin)
+        {
+            return model.PassOtherTranslations(origin, _translation);
+        }
+
+        private Word FindAnswerByGUID(Word q)
+        {
+            // Znajdź pasującą odpowiedź
+            Word ans = null;
+            // Przeszukuj słowa w odpowiedziach do znalezienia pasującego GUIDA
+            foreach (var w in Answers)
+                if (w.GUID == q.GUID)
+                {
+                    ans = w;
+                    break;
+                } 
+            return ans;
+        }
+
         #endregion
 
         #region Komendy
@@ -106,7 +176,23 @@ namespace FlashCards.ViewModel
                     showAnswer = new RelayCommand(
                         arg =>
                         {
+                            // Jeśli są inne tłumaczenia to znajdź 
+                            List<Word> others = FindOtherMeanings(Question);
+                            if (others.Any())
+                            {
+                                OtherTranslations = "Inne : ";
+                                foreach (var other in others)
+                                {
+                                    OtherTranslations += other + ", ";
+                                }
+                            }
+                            else
+                                OtherTranslations = "";
 
+                            // Zmiana stanu na ocenianie
+                            IsUserGuessing = false;
+                            IsUserRating = true;
+                            //
                         },
                         arg => true
                         );
@@ -128,7 +214,13 @@ namespace FlashCards.ViewModel
                     grantMinusOne = new RelayCommand(
                         arg =>
                         {
+
                             // check zeby nie wyjsc za 0
+                            GetNewWord();
+                            // Zmiana stanu na zgadywanie
+                            IsUserGuessing = true;
+                            IsUserRating = false;
+                            //
                         },
                         arg => true
                         );
@@ -150,6 +242,11 @@ namespace FlashCards.ViewModel
                         arg =>
                         {
 
+                            GetNewWord();
+                            // Zmiana stanu na zgadywanie
+                            IsUserGuessing = true;
+                            IsUserRating = false;
+                            //
                         },
                         arg => true
                         );
@@ -171,12 +268,38 @@ namespace FlashCards.ViewModel
                         arg =>
                         {
 
+                            GetNewWord();
+                            // Zmiana stanu na zgadywanie
+                            IsUserGuessing = true;
+                            IsUserRating = false;
+                            //
                         },
                         arg => true
                         );
                 }
 
                 return grantPlusThree;
+            }
+        }
+
+        private ICommand goBack = null;
+
+        public ICommand GoBack
+        {
+            get
+            {
+                if (goBack == null)
+                {
+                    goBack = new RelayCommand(
+                        arg =>
+                        {
+                            Mediator.Notify("BackFromTrain1", "");
+                        },
+                        arg => true
+                        );
+                }
+
+                return goBack;
             }
         }
         #endregion

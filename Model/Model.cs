@@ -19,7 +19,6 @@ namespace FlashCards.Model
         public ObservableCollection<WordKnowledge> WordKnowledges { get; set; } = new ObservableCollection<WordKnowledge>();
 
 
-
         #endregion
 
         public Model()
@@ -87,6 +86,27 @@ namespace FlashCards.Model
             return false;
         }
         
+        public List<Word> PassOtherTranslations(Word origin, Language translation)
+        {
+            List<Word> others = new List<Word>();
+            foreach (var w in Words)
+            {
+                // Znajdujemy takie samo słowo ale z innym guidem (inne znaczenie)
+                if (w.Id_lang == origin.Id_lang && w.WordName == origin.WordName && w.GUID != origin.GUID)
+                {
+                    foreach (var t in Words)
+                    {
+                        // Jeśli znaczenie znalezionego słowa ma to samo znaczenie w języku tłumaczenia to dodaj 
+                        if( w.GUID == t.GUID && t.Id_lang == translation.Id)
+                        {
+                            others.Add(t);
+                        }
+                    }
+                }
+            }
+            return others;
+        }
+
         public List<Word> PassWordCollection(sbyte word_id, sbyte translation_id, string difficulty)
         {
             List<Word> randomWords = new List<Word>();
@@ -99,7 +119,7 @@ namespace FlashCards.Model
             return randomWords;
         }
 
-        private Word FindWordById(int id)
+        private Word FindWordById(uint id)
         {
             foreach (var w in Words)
             {
