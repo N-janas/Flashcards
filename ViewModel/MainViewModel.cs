@@ -9,6 +9,7 @@ using System.Diagnostics;
 namespace FlashCards.ViewModel
 {
     using Model;
+    using DAL.Encje;
     class MainViewModel : BaseViewModel
     {
         #region Własności
@@ -47,24 +48,37 @@ namespace FlashCards.ViewModel
             get { return tabPage; }
             set { tabPage = value; onPropertyChanged(nameof(TabPage)); }
         }
+
+        private LanguageTrainingVM langTrain = null;
+        public LanguageTrainingVM LangTrain
+        {
+            get { return langTrain; }
+            set { langTrain = value; onPropertyChanged(nameof(LangTrain)); }
+        }
         // Będę jeszcza dwa widoki z treningów (języki i fcard)
         #endregion
 
         public MainViewModel()
         {
+            // Przypisanie domyślnych widoków
             LoginPage = new LoggingPageViewModel(model);
-            TabPage = new TabVM(model);
+            TabPage = new TabVM();
+            LangTrain = new LanguageTrainingVM();
 
+            // Wpisanie ich na miejsca w liście
             Vms.Add(LoginPage);
             Vms.Add(TabPage);
-            // Add(new Objcet) - dodanie placeholdera ( zapełnienie indexu)
-            // i potem w GoTo tworzenie nowego obiektu vm'a treningowego
+            Vms.Add(LangTrain);
 
             this._actualViewModel = LoginPage; // Starter VM
 
+            // Dodanie funkcji zmiany na odpowiednie vm'y dla mediatora 
+            // Login
             Mediator.Subscribe("GoToTabsPage", GoToTabsScreen);
-            // Mediator logout 
+            // Logout
+            Mediator.Subscribe("Logout", BackToLoginPage);
             // Mediator train1
+            Mediator.Subscribe("TrainLangs", TrainPredefinedLangs);
             // Mediator train2
 
         }
@@ -81,10 +95,32 @@ namespace FlashCards.ViewModel
         private void GoToTabsScreen(object obj)
         {
             // Nadanie Usera po zalogowaniu
-            TabPage.LangTabVM.LoggedUser = obj as sbyte?;
+            TabPage = new TabVM(model, (sbyte?)obj);
 
-            // Przełączenie contentu
+            // Przełączenie contentu na okno zakładek
             ChangeViewModel(Vms[1]);
+        }
+
+        private void BackToLoginPage(object obj)
+        {
+            // Powrót do ekranu logowania
+            LoginPage = new LoggingPageViewModel(model);
+            ChangeViewModel(Vms[0]);
+        }
+
+        private void TrainPredefinedLangs(object obj)
+        {
+            List<List<TrainData>> daneTreningowe = obj as List<List<TrainData>>;
+
+            // Przekazanie nowych danych treningowych nowemu oknu
+            LangTrain = new LanguageTrainingVM(
+                model,
+                daneTreningowe[0].Cast<Word>().ToList(),
+                daneTreningowe[1].Cast<Word>().ToList(),
+                daneTreningowe[2].Cast<FrontBack>().ToList(),
+                TabPage.LoggedUser
+                );
+            ChangeViewModel(Vms[2]);
         }
         
         #endregion

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FlashCards.Model
 {
     using DAL.Encje;
-    class FrontBack
+    class FrontBack : TrainData
     {
         public Word Front { get; private set; }
         public Word Back { get; private set; }

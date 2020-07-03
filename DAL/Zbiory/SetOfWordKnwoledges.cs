@@ -38,7 +38,7 @@ namespace FlashCards.DAL.Zbiory
                 connection.Open();
                 var id = cmd.ExecuteNonQuery();
                 state = true;
-                wk.Id = (long)cmd.LastInsertedId; // long? hmm ?
+                wk.Id = (long)cmd.LastInsertedId;
                 connection.Close();
             }
             return state;

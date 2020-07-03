@@ -11,13 +11,11 @@ namespace FlashCards.ViewModel
     using FlashCards.Model;
     using FlashCards.DAL.Encje;
     using System.Collections.ObjectModel;
-    //using FlashCards.DAL.Zbiory;
     using System.Windows.Input;
 
     class LoggingPageViewModel : BaseViewModel
     {
         #region Składowe prywatne
-        //private BaseViewModel _mainViewModel = null;
         private Model model = null;
         private User _selectedUserFromList;
         private string _imie;
@@ -83,6 +81,7 @@ namespace FlashCards.ViewModel
             Nazwisko = u.Surname;
         }
 
+        // Ładuje dane użytkownika przy zmianach kontrolki
         private void list_SelectionChanged(object sender)
         {
             if (SelectedUserFromList != null)
@@ -169,9 +168,11 @@ namespace FlashCards.ViewModel
                                 // Tworzony potem user więc trim jest wewnątrz
                                 if (model.AddUserToUsers(Imie, Nazwisko))
                                 {
+                                    // Sprawdzamy czy user jest w bazie jeśli tak to mamy jego id jeśli nie to null
                                     sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
                                     if (userTrial != null)
                                     {
+                                        ClearForm();
                                         Mediator.Notify("GoToTabsPage", userTrial);
                                     }
                                 }
@@ -209,9 +210,11 @@ namespace FlashCards.ViewModel
                            if (IsNazwiskoValid && IsImieValid)
                            {
                                // Tworzony potem user więc trim jest wewnątrz
+                               // Sprawdzamy czy user jest w bazie jeśli tak to mamy jego id jeśli nie to null
                                sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
                                if (userTrial != null)
                                {
+                                   ClearForm();
                                    Mediator.Notify("GoToTabsPage", userTrial);
                                }
                                else

@@ -18,6 +18,8 @@ namespace FlashCards.Model
         public ObservableCollection<Word> Words { get; set; } = new ObservableCollection<Word>();
         public ObservableCollection<WordKnowledge> WordKnowledges { get; set; } = new ObservableCollection<WordKnowledge>();
 
+
+
         #endregion
 
         public Model()
@@ -34,6 +36,8 @@ namespace FlashCards.Model
 
             var wordKnowledges = SetOfWordKnwoledges.GetAllWordKnowledges();
             foreach (var wks in wordKnowledges) WordKnowledges.Add(wks);
+
+            // Strona Fiszki
 
         }
 
@@ -67,6 +71,7 @@ namespace FlashCards.Model
             return null;
         }
 
+        // Dodawanie użytkownika
         public bool AddUserToUsers(string name, string surname)
         {
             User u = new User(name, surname);
@@ -84,25 +89,13 @@ namespace FlashCards.Model
         
         public List<Word> PassWordCollection(sbyte word_id, sbyte translation_id, string difficulty)
         {
-            // Dodawnie słów powiązanych z dwoma wybranymi językami
             List<Word> randomWords = new List<Word>();
             foreach (var word in Words)
             {
+                // Dodawnie słów powiązanych z dwoma wybranymi językami
                 if ((word.Id_lang == word_id || word.Id_lang == translation_id) && word.Difficulty.Equals(difficulty))
                     randomWords.Add(word);
             }
-            //if (difficulty == null)
-            //{
-            //    foreach (var word in Words)
-            //    {
-            //        if (word.Id_lang == word_id || word.Id_lang == translation_id)
-            //            randomWords.Add(word);
-            //    }
-            //}
-            //else
-            //{
-
-            //}
             return randomWords;
         }
 
@@ -116,9 +109,9 @@ namespace FlashCards.Model
             return null;
         }
 
-        public ObservableCollection<WordKnowledge> PassUserPerformance(sbyte user_id, sbyte langA, sbyte langB)
+        public List<WordKnowledge> PassUserPerformance(sbyte? user_id, sbyte langA, sbyte langB)
         {
-            ObservableCollection<WordKnowledge> currentUserPerformance = new ObservableCollection<WordKnowledge>();
+            List<WordKnowledge> currentUserPerformance = new List<WordKnowledge>();
             // Wybierz języki w kolejności mniejszy na wiekszy
             // Czyli PL -> ANG (1, 5)
             // to ANG -> PL nadal (1, 5)
@@ -126,6 +119,7 @@ namespace FlashCards.Model
             sbyte minLang = Math.Min(langA, langB);
             sbyte maxLang = Math.Max(langA, langB);
 
+            // Zakładamy że tłumaczenie języków z mniejszego id na większe
             foreach (var wk in WordKnowledges)
             {
                 // if user_id = user_id and smallLang = word.(small)Lang_id and bigLang = word.(big)Lang_id 
@@ -134,12 +128,13 @@ namespace FlashCards.Model
                     currentUserPerformance.Add(wk);
                 }
             }
+            // Przekazanie krotek z obecnym uczeniem użytkownika
             return currentUserPerformance;
         }
 
         public bool WordKnowledgeExists(WordKnowledge wk) => WordKnowledges.Contains(wk); 
 
-        public bool UpdateWordKnowledge(ObservableCollection<WordKnowledge> updatedPerfSet)
+        public bool UpdateWordKnowledge(List<WordKnowledge> updatedPerfSet)
         {
             foreach (var knowledge in updatedPerfSet)
             {

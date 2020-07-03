@@ -65,10 +65,12 @@ namespace FlashCards.ViewModel
         }
 
         #endregion
+
         #region Konstruktory
         // Trzymany w MainVM
-        public LanguagesTabViewModel(Model model)
+        public LanguagesTabViewModel(Model model, sbyte? user)
         {
+            LoggedUser = user;
             this.model = model;
             Difficulties = this.model.PassDifficulties();
             LangCollection = this.model.Langs;
@@ -84,7 +86,7 @@ namespace FlashCards.ViewModel
 
         private bool Match(Word wordA, Word wordB, WordKnowledge wordKnowledge)
         {
-            if (wordA.GUID == wordB.GUID && ((wordKnowledge.Id_word_back == wordB.Id && wordKnowledge.Id_word_front == wordA.Id) || (wordKnowledge.Id_word_back == wordA.Id && wordKnowledge.Id_word_front == wordB.Id))) 
+            if (wordA.GUID == wordB.GUID && wordKnowledge.Id_word_back == wordB.Id && wordKnowledge.Id_word_front == wordA.Id) 
                 return true;
             return false;
         }
@@ -92,19 +94,21 @@ namespace FlashCards.ViewModel
         {
             List<FrontBack> frontBackList = new List<FrontBack>();
 
+            // Szukamy odpowiadających słów
             foreach (Word wordA in langA)
             {
                 foreach (Word wordB in langB)
                 {
                     if (wordA.GUID == wordB.GUID)
                     {
+                        // Inicjujemy kwLevel pary zerem (jeśli już istnieje nadpisz inną wartością)
                         sbyte knowledge = 0;
                         foreach (WordKnowledge wordKnowledge in wordKnowledges)
                         {
                             if (Match(wordA, wordB, wordKnowledge)) knowledge = wordKnowledge.Knowledge;
                         }
                         frontBackList.Add(new FrontBack(wordA, wordB, knowledge));
-                        continue;
+                        break;
                     }
                 }
             }
@@ -128,7 +132,7 @@ namespace FlashCards.ViewModel
 
         public List<Word> Shuffle(List<Word> list)
         {
-            for (int n = list.Count; n > 1; n--)
+            for (int n = list.Count-1; n > 1; n--)
             {
                 int rng = random.Next(n + 1);
                 Word value = list[rng];
@@ -141,33 +145,54 @@ namespace FlashCards.ViewModel
 
         public void SplitWords(List<Word> allWords, sbyte idFront, sbyte idBack, out List<Word> langA, out List<Word> langB)
         {
+            // Podzielenie na słów na języki 
             langA = new List<Word>();
             langB = new List<Word>();
 
             foreach(Word word in allWords)
             {
-                if (word.Id == idFront)
+                if (word.Id_lang == idFront)
                     langA.Add(word);
-                else if (word.Id == idBack)
+                else if (word.Id_lang == idBack)
                     langB.Add(word);
                 else
                     Debug.WriteLine("Data passed to 'CreateQueue' method appeared to be incorrect");
             }
         }
 
-        public List<Word> CreateQueue(List<Word> allWords, List<WordKnowledge> wordKnowledges, sbyte idFront, sbyte idBack)
+        public List<Word> CreateQueue(
+            List<Word> allWords, List<WordKnowledge> wordKnowledges, sbyte idFront, sbyte idBack,
+            out List<FrontBack> fBL, out List<Word> translations
+            )
         {
+            // Określenie bazy i tłumaczenia 
+            sbyte origin = idFront;
+            sbyte translation = idBack;
+            // Określenia pierwszego i drugiego parametru krotki knowledgeLevel  (języki z mniejszego -> na większy) 
+            // oraz tłumaczenie np Ang->Pol = Pol->Ang (ten sam KnowledgeLevel) dlatego nie chcemy trzymać 2 krotek tylko zawsze
+            // z mniejszego języka na większy (id)
+            idFront = Math.Min(origin, translation);
+            idBack = Math.Max(origin, translation);
+
             SplitWords(allWords, idFront, idBack, out List<Word> langA, out List<Word> langB);
+            if (origin < translation)
+                translations = langB;
+            else
+                translations = langA;
+            // Tworzenie uproszczonych obiektów przodu i tyłu karty
             List<FrontBack> frontBackList = CreateFrontBack(langA, langB, wordKnowledges);
+            fBL = frontBackList;
 
             FindMinAndMaxKnowledge(frontBackList, out sbyte maxKnowledge, out sbyte minKnowledge);
 
             sbyte difference = maxKnowledge;
             difference -= minKnowledge;
-            //sbyte difference = maxKnowledge - minKnowledge; //why is this not working?
 
+            // Tworzenie kolejki z której będą losowane słowa
             List<Word> queue = new List<Word>();
 
+            // Utworzenie odpowiedniej liczby duplikatów, zwiększającej prawdopodobieństwo
+            // na wylosowanie słówek mniej znanych (wyznacznik knowledgeLevel)
             foreach (FrontBack frontBack in frontBackList)
             {
                 sbyte repetitions = maxKnowledge;
@@ -176,9 +201,15 @@ namespace FlashCards.ViewModel
 
                 for (int i = 0; i < repetitions; i++)
                 {
-                    queue.Add(frontBack.Front);
+                    // Z mniejszego id języka na większy
+                    if (origin < translation)
+                        queue.Add(frontBack.Front);
+                    else
+                        queue.Add(frontBack.Back);
+
                 }
             }
+
             queue = Shuffle(queue);
             return queue;
         }
@@ -202,9 +233,26 @@ namespace FlashCards.ViewModel
                             {
                                 // Check if Z and Na isnt the same 
                                 // Id check bo nie ma override Equals
-                                if (SelectedLangZ.Id != SelectedLangNa.Id)
+                                if (SelectedLangZ.Id != SelectedLangNa.Id)  
                                 {
+                                    List<List<TrainData>> daneTreningowe = new List<List<TrainData>>();
 
+                                    // Wyznaczenie kolejki pytań (z duplikatami)
+                                    List<Word> questions = CreateQueue(
+                                            model.PassWordCollection(SelectedLangZ.Id, SelectedLangNa.Id, SelectedDifficulty),
+                                            model.PassUserPerformance(LoggedUser, SelectedLangZ.Id, SelectedLangNa.Id),
+                                            SelectedLangZ.Id,
+                                            SelectedLangNa.Id,
+                                            out List<FrontBack> fBL,
+                                            out List<Word> translations
+                                            );
+
+                                    // Dodanie danych treningowych (pytania, odpowiedzi) oraz zbioru uproszczonych krotek kwLevel
+                                    daneTreningowe.Add(questions.Cast<TrainData>().ToList());
+                                    daneTreningowe.Add(translations.Cast<TrainData>().ToList());
+                                    daneTreningowe.Add(fBL.Cast<TrainData>().ToList());
+
+                                    Mediator.Notify("TrainLangs", daneTreningowe);
                                 }
                                 else
                                     System.Windows.MessageBox.Show("Wybierz różne języki");
@@ -220,7 +268,6 @@ namespace FlashCards.ViewModel
             }
         }
 
-        // TMP
         private ICommand logout = null;
 
         public ICommand Logout
@@ -232,10 +279,8 @@ namespace FlashCards.ViewModel
                     logout = new RelayCommand(
                         arg =>
                         {
-                            // Wylogowanie
-                            LoggedUser = null;
                             // Powrót okna
-                            Console.WriteLine();
+                            Mediator.Notify("Logout", "");
                         },
                         arg => true
                         );

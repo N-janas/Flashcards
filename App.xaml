@@ -16,5 +16,10 @@
         <DataTemplate DataType="{x:Type viewmodels:TabVM}">
             <views:Tabs/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:LanguageTrainingVM}">
+            <views:LanguageTraining/>
+        </DataTemplate>
+        
     </Application.Resources>
 </Application>

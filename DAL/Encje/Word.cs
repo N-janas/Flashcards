@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace FlashCards.DAL.Encje
 {
-    class Word
+    class Word : TrainData
     {
         #region Własności
         public int Id { get; set; }

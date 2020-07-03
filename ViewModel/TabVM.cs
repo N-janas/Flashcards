@@ -9,6 +9,13 @@ namespace FlashCards.ViewModel
     using FlashCards.Model;
     class TabVM : BaseViewModel
     {
+        private sbyte? loggedUser = null;
+
+        public sbyte? LoggedUser
+        {
+            get { return loggedUser; }
+            set { loggedUser = value; onPropertyChanged(nameof(LoggedUser)); }
+        }
         #region ViewModele Zakładek
 
         private LanguagesTabViewModel langTabVM = null;
@@ -34,11 +41,13 @@ namespace FlashCards.ViewModel
         {
             // Initialize only
         }
-        public TabVM(Model model)
+        public TabVM(Model model, sbyte? user)
         {
-            LangTabVM = new LanguagesTabViewModel(model);
-            // FcardTabVM = new FlashCardTabViewModel(model);
+            LoggedUser = user;
+            LangTabVM = new LanguagesTabViewModel(model, user);
+            // FcardTabVM = new FlashCardTabViewModel(model, user);
         }
+
         #endregion
 
     }

@@ -20,6 +20,7 @@ namespace FlashCards.DAL.Zbiory
 
             using (var connection = DBConnection.Instance.Connection)
             {
+                // Wykonanie zapytania o pobranie wszystkich języków
                 MySqlCommand cmd = new MySqlCommand(query.all_langs, connection);
 
                 connection.Open();
