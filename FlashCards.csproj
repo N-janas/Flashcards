@@ -82,13 +82,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\DBConnection.cs" />
-<<<<<<< HEAD
     <Compile Include="DAL\Encje\TrainData.cs" />
-=======
     <Compile Include="DAL\Encje\Deck.cs" />
     <Compile Include="DAL\Encje\FlipCard.cs" />
     <Compile Include="DAL\Encje\FlipCardKnowledge.cs" />
->>>>>>> 4704c9f0ab881a5ae769b33de3631619513edce0
     <Compile Include="DAL\Encje\Language.cs" />
     <Compile Include="DAL\Encje\User.cs" />
     <Compile Include="DAL\Encje\Word.cs" />
