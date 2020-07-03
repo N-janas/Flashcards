@@ -96,12 +96,12 @@ namespace FlashCards.ViewModel
             // Initialize only
         }
 
-        public LanguageTrainingVM(Model model, List<Word> questions, List<Word> answers, List<FrontBack> fronBack, sbyte? id_user, string langA, Language langB)
+        public LanguageTrainingVM(Model model, List<Word> questions, List<Word> answers, List<FrontBack> frontBack, sbyte? id_user, string langA, Language langB)
         {
             this.model = model;
             Questions = questions;
             Answers = answers;
-            _frontBack = fronBack;
+            _frontBack = frontBack;
             // Inicjalizacja nowej listy z levelem
             // będzie ona uzupełniana i wysyłana do aktualizacji 
             // czestotliwości pojawiania się słów po zakończonej sesji treningowej
@@ -110,10 +110,41 @@ namespace FlashCards.ViewModel
             Title = langA+" -> "+langB.LangName;
             _translation = langB;
             GetNewWord();
+            foreach (var w in Questions)
+            {
+                Console.WriteLine(w);
+            }
         }
         #endregion
 
         #region Metody
+        private WordKnowledge SaveProgres(sbyte factor)
+        {
+            // Znajdź odpowiednią krotke
+            foreach (var fb in FrontBacks)
+            {
+                // Jeden zawsze nie spełniony, zapisujemy języki z mniejszego na większy i takie sa trzymane w FrontBacks
+                // ale nie jesteśmy pewni w której kolejności się uczy teraz user więc sprawdzamy obie
+                if( (fb.Front == Question && fb.Back == Answer) || (fb.Back == Question && fb.Front == Answer))
+                {
+                    // I zwróć ją jako odpowiednią w formacie do bazy
+                    // Sprawdza czy jest w przedziale 0-127
+                    factor += fb.Knowledge;
+                    if (factor > 127 || factor < 0)
+                    {
+                        return new WordKnowledge(fb.Front.Id, fb.Back.Id, (sbyte)user, fb.Knowledge);
+                    }
+                    else
+                    {
+                        // Zaktualizuj również stan w obecnym oknie
+                        FrontBacks[FrontBacks.IndexOf(fb)].Knowledge = factor;
+                        return new WordKnowledge(fb.Front.Id, fb.Back.Id, (sbyte)user, factor);
+                    }     
+                }
+            }
+            return null;
+        }
+
         private static Random random = new Random();
         private List<Word> Shuffle(List<Word> list)
         {
@@ -139,7 +170,6 @@ namespace FlashCards.ViewModel
                 iter = 0;
                 Questions = Shuffle(Questions);
             }
-
         }
 
         private List<Word> FindOtherMeanings(Word origin)
@@ -180,6 +210,7 @@ namespace FlashCards.ViewModel
                             List<Word> others = FindOtherMeanings(Question);
                             if (others.Any())
                             {
+                                // I wyświetl
                                 OtherTranslations = "Inne : ";
                                 foreach (var other in others)
                                 {
@@ -214,8 +245,7 @@ namespace FlashCards.ViewModel
                     grantMinusOne = new RelayCommand(
                         arg =>
                         {
-
-                            // check zeby nie wyjsc za 0
+                            model.UpdateWordKnowledge(SaveProgres(-1));
                             GetNewWord();
                             // Zmiana stanu na zgadywanie
                             IsUserGuessing = true;
@@ -241,7 +271,7 @@ namespace FlashCards.ViewModel
                     grantPlusOne = new RelayCommand(
                         arg =>
                         {
-
+                            model.UpdateWordKnowledge(SaveProgres(1));
                             GetNewWord();
                             // Zmiana stanu na zgadywanie
                             IsUserGuessing = true;
@@ -267,7 +297,7 @@ namespace FlashCards.ViewModel
                     grantPlusThree = new RelayCommand(
                         arg =>
                         {
-
+                            model.UpdateWordKnowledge(SaveProgres(3));
                             GetNewWord();
                             // Zmiana stanu na zgadywanie
                             IsUserGuessing = true;

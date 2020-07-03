@@ -13,11 +13,16 @@ namespace FlashCards.Model
     class Model
     {
         #region List Danych
+        // Języki
         public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
         public ObservableCollection<Language> Langs { get; set; } = new ObservableCollection<Language>();
         public ObservableCollection<Word> Words { get; set; } = new ObservableCollection<Word>();
         public ObservableCollection<WordKnowledge> WordKnowledges { get; set; } = new ObservableCollection<WordKnowledge>();
 
+        // Fiszki
+        public ObservableCollection<FlipCard> FlipCards { get; set; } = new ObservableCollection<FlipCard>();
+        public ObservableCollection<FlipCardKnowledge> FlipCardKnowledges { get; set; } = new ObservableCollection<FlipCardKnowledge>();
+        public ObservableCollection<Deck> Decks { get; set; } = new ObservableCollection<Deck>();
 
         #endregion
 
@@ -37,10 +42,21 @@ namespace FlashCards.Model
             foreach (var wks in wordKnowledges) WordKnowledges.Add(wks);
 
             // Strona Fiszki
+            var flipcards = SetOfFlipCards.GetAllFlipCards();
+            foreach (var flipcard in flipcards) FlipCards.Add(flipcard);
 
+            var flipCardKnowledges = SetOfFlipCardKnowledges.GetAllFlipCardKnowledges();
+            foreach (var flipCardKwl in flipCardKnowledges) FlipCardKnowledges.Add(flipCardKwl);
+
+            var decks = SetOfDecks.GetAllDecks();
+            foreach (var deck in decks) Decks.Add(deck);
         }
 
-        #region Metody
+        #region Metody fiszek
+
+        #endregion
+
+        #region Metody języków
         public List<string> PassDifficulties()
         {
             HashSet<string> distinctDiffs = new HashSet<string>();
@@ -92,7 +108,7 @@ namespace FlashCards.Model
             foreach (var w in Words)
             {
                 // Znajdujemy takie samo słowo ale z innym guidem (inne znaczenie)
-                if (w.Id_lang == origin.Id_lang && w.WordName == origin.WordName && w.GUID != origin.GUID)
+                if (w.Id_lang == origin.Id_lang && w.WordName.ToLower() == origin.WordName.ToLower() && w.GUID != origin.GUID)
                 {
                     foreach (var t in Words)
                     {
@@ -154,42 +170,41 @@ namespace FlashCards.Model
 
         public bool WordKnowledgeExists(WordKnowledge wk) => WordKnowledges.Contains(wk); 
 
-        public bool UpdateWordKnowledge(List<WordKnowledge> updatedPerfSet)
+        public void UpdateWordKnowledge(WordKnowledge knowledge)
         {
-            foreach (var knowledge in updatedPerfSet)
+            //foreach (var knowledge in updatedPerfSet)
+            //{
+            // Equals ovveride bez sprawdzania level, więc szuka tylko krotki wg.: id_front, id_back, id_user
+            // Check czy user już sie tego uczył
+            if (WordKnowledgeExists(knowledge))
             {
-                // Equals ovveride bez sprawdzania level, więc szuka tylko krotki wg.: id_front, id_back, id_user
-                // Check czy user już sie tego uczył
-                if (WordKnowledgeExists(knowledge))
+                // Edycja (użycie Update)
+                var oldLevel = WordKnowledges[WordKnowledges.IndexOf(knowledge)];
+                // Czy zmienił poziom w danej krotce
+                if (oldLevel.Knowledge != knowledge.Knowledge)
                 {
-                    // Edycja (użycie Update)
-                    var oldLevel = WordKnowledges[WordKnowledges.IndexOf(knowledge)];
-                    // Czy zmienił poziom w danej krotce
-                    if (oldLevel.Knowledge != knowledge.Knowledge)
+                    // Jeśli tak to edytuj w bazie 
+                    if (SetOfWordKnwoledges.EditWordKnowledge(knowledge, oldLevel.Id))
                     {
-                        // Jeśli tak to edytuj w bazie 
-                        if (SetOfWordKnwoledges.EditWordKnowledge(knowledge, oldLevel.Id))
-                        {
-                            // i edytuj w kolekcji
-                            knowledge.Id = oldLevel.Id;
-                            WordKnowledges[WordKnowledges.IndexOf(oldLevel)] = knowledge;
-                        }
-                        
+                        // i edytuj w kolekcji
+                        knowledge.Id = oldLevel.Id;
+                        WordKnowledges[WordKnowledges.IndexOf(oldLevel)] = knowledge;
                     }
+
                 }
-                else // Jeśli nowa krotka to
+            }
+            else // Jeśli nowa krotka to
+            {
+                // Dodaj nowe ( użycie SetOf...Add (index się doda))
+                if (SetOfWordKnwoledges.AddWordKnowledge(knowledge))
                 {
-                    // Dodaj nowe ( użycie SetOf...Add (index się doda))
-                    if (SetOfWordKnwoledges.AddWordKnowledge(knowledge))
-                    {
-                        // Dodaj do listy (z indexem)
-                        WordKnowledges.Add(knowledge);
-                    }
-                    
+                    // Dodaj do listy (z indexem)
+                    WordKnowledges.Add(knowledge);
                 }
 
             }
-            return true; // Jaki return ? bo w sumie to guzikiem nie bedzie to chyba typ void ?
+
+            //}
         }
         #endregion
     }

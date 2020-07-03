@@ -49,7 +49,7 @@ namespace FlashCards.DAL.Zbiory
             bool state = false;
             using(var connection = DBConnection.Instance.Connection)
             {
-                // inny update string ( i moze dodac parametr w funkcji z + ile pkt )
+                // Aktualizacja krotki (jeśli wymagana) w miejscu poprzednika (zmiana tylko knowledge)
                 string AKTUALIZUJ_POZIOM = $"UPDATE wordknowledge SET knowledge={wk.Knowledge} WHERE ID={idWk}";
                 MySqlCommand cmd = new MySqlCommand(AKTUALIZUJ_POZIOM, connection);
                 connection.Open();

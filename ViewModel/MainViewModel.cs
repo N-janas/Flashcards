@@ -55,7 +55,6 @@ namespace FlashCards.ViewModel
             get { return langTrain; }
             set { langTrain = value; onPropertyChanged(nameof(LangTrain)); }
         }
-        // Będę jeszcza dwa widoki z treningów (języki i fcard)
         #endregion
 
         public MainViewModel()

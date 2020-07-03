@@ -33,6 +33,23 @@ namespace FlashCards.DAL.Encje
         {
             return $"{WordName}";
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var w = obj as Word;
+            if (w is null) return false;
+            if (Id != w.Id) return false;
+            if (WordName != w.WordName) return false;
+            if (Id_lang != w.Id_lang) return false;
+            if (Difficulty != w.Difficulty) return false;
+            if (GUID != w.GUID) return false;
+            return true;
+        }
         #endregion
     }
 }

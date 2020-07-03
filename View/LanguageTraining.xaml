@@ -64,13 +64,13 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Content="-1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30"
+                <Button Content="Słabo" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="30"
                         Command="{Binding LangTrain.GrantMinusOne}"/>
 
-                <Button Content="+1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30"
+                <Button Content="Dobrze" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="30"
                         Command="{Binding LangTrain.GrantPlusOne}"/>
 
-                <Button Content="+3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30"
+                <Button Content="Bardzo dobrze" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="30"
                         Command="{Binding LangTrain.GrantPlusThree}"/>
 
             </Grid>
