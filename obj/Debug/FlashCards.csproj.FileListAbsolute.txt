@@ -74,5 +74,8 @@ C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.exe
 C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.pdb
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.g.cs
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.baml
+<<<<<<< HEAD
 C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LanguageTraining.g.cs
 C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LanguageTraining.baml
+=======
+>>>>>>> 699e4a430fa9cb8da235e4e4893b84166a30c470
