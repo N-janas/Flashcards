@@ -72,3 +72,7 @@ C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.csproj.GenerateResource.
 C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.csproj.CopyComplete
 C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.exe
 C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.pdb
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.g.cs
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.baml
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LanguageTraining.g.cs
+C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LanguageTraining.baml

@@ -82,6 +82,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\Encje\TrainData.cs" />
     <Compile Include="DAL\Encje\Deck.cs" />
     <Compile Include="DAL\Encje\FlipCard.cs" />
     <Compile Include="DAL\Encje\FlipCardKnowledge.cs" />
@@ -100,9 +101,18 @@
     <Compile Include="Model\Model.cs" />
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
+    <Compile Include="ViewModel\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\LanguageTrainingVM.cs" />
+    <Compile Include="View\LanguageTraining.xaml.cs">
+      <DependentUpon>LanguageTraining.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Tabs.xaml.cs">
       <DependentUpon>Tabs.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\LanguageTraining.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoggingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

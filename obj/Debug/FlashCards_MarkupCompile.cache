@@ -10,16 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\admin\source\repos\Fiszki\App.xaml
-32142244768
+4122330710
 
-<<<<<<< HEAD
-32-149547421
+36-835544032
 1271533361047
-=======
-27603710132
-127249653921
->>>>>>> eebf1f15f3b89e345c978bd4456d0ff482e8dd53
-View\LoggingPage.xaml;View\MainWindow.xaml;View\Tabs.xaml;
+View\LanguageTraining.xaml;View\LoggingPage.xaml;View\MainWindow.xaml;View\Tabs.xaml;
 
-True
+False
 

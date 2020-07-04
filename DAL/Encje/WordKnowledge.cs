@@ -10,23 +10,23 @@ namespace FlashCards.DAL.Encje
     class WordKnowledge
     {
         #region Własności
-        public long? Id { get; set; }
-        public int Id_word_front { get; set; }
-        public int Id_word_back { get; set; }
+        public ulong? Id { get; set; }
+        public uint Id_word_front { get; set; }
+        public uint Id_word_back { get; set; }
         public sbyte Id_user { get; set; }
         public sbyte Knowledge { get; set; }
         #endregion
 
         public WordKnowledge(MySqlDataReader reader)
         {
-            Id = long.Parse(reader["ID"].ToString());
-            Id_word_front = int.Parse(reader["ID_Word_Front"].ToString());
-            Id_word_back = int.Parse(reader["ID_Word_Back"].ToString());
+            Id = ulong.Parse(reader["ID"].ToString());
+            Id_word_front = uint.Parse(reader["ID_Word_Front"].ToString());
+            Id_word_back = uint.Parse(reader["ID_Word_Back"].ToString());
             Id_user = sbyte.Parse(reader["ID_User"].ToString());
             Knowledge = sbyte.Parse(reader["Knowledge"].ToString());
         }
 
-        public WordKnowledge(int id_front, int id_back, sbyte id_user, sbyte knowledge)
+        public WordKnowledge(uint id_front, uint id_back, sbyte id_user, sbyte knowledge)
         {
             Id = null;
             Id_word_front = id_front;

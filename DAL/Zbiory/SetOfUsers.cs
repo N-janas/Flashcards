@@ -19,6 +19,7 @@ namespace FlashCards.DAL.Zbiory
             List<User> users = new List<User>();
             using (var connection = DBConnection.Instance.Connection)
             {
+                // Wykonanie zapytania o pobranie wszystkich użytkowników
                 MySqlCommand cmd = new MySqlCommand(query.all_users, connection);
 
                 connection.Open();

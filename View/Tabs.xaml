@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlashCards.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:vm="clr-namespace:FlashCards.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -29,19 +30,24 @@
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- Z column and logout button -->
+                            <!-- Z column -->
                             <StackPanel Grid.Column="0">
                                 <Label Content="Z:" HorizontalAlignment="Center"/>
-                                <ComboBox Margin="30,10,30,10"/>
+                                <ComboBox ItemsSource="{Binding TabPage.LangTabVM.LangCollection}"
+                                          SelectedItem="{Binding TabPage.LangTabVM.SelectedLangZ}"
+                                          Margin="30,10,30,10">
+                                </ComboBox>
                             </StackPanel>
 
                             <!-- Difficulty column and TRAIN button -->
                             <StackPanel Grid.Column="1">
                                 <Label Content="Trudność:" HorizontalAlignment="Center"/>
-                                <ComboBox Margin="65,10,65,10"/>
+                                <ComboBox ItemsSource="{Binding TabPage.LangTabVM.Difficulties}" 
+                                          SelectedItem="{Binding TabPage.LangTabVM.SelectedDifficulty}"
+                                          Margin="65,10,65,10"/>
 
                                 <Button Content="Trenuj" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                Margin="50" Height="30">
+                                Margin="50" Height="30" Command="{Binding TabPage.LangTabVM.Train}">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="7"/>
@@ -53,17 +59,21 @@
                             <!-- Na column -->
                             <StackPanel Grid.Column="2">
                                 <Label Content="Na:" HorizontalAlignment="Center"/>
-                                <ComboBox  Margin="30,10,30,10"/>
+                                <ComboBox ItemsSource="{Binding TabPage.LangTabVM.LangCollection}" 
+                                          SelectedItem="{Binding TabPage.LangTabVM.SelectedLangNa}"
+                                          Margin="30,10,30,10"/>
                             </StackPanel>
                         </Grid>
                         
                     </StackPanel>
 
-                    <Button Content="Wyloguj" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="60" />
+                    <Button Content="Wyloguj" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" FontSize="15"
+                            Command="{Binding TabPage.LangTabVM.Logout}" Margin="-3,0,0,-3"/>
                 </Grid>
 
             </TabItem>
 
+            
             <TabItem Header=" Fiszki ">
 
             </TabItem>

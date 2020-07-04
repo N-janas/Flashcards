@@ -27,6 +27,7 @@ namespace FlashCards.DAL
 
         private DBConnection()
         {
+            // Wczytanie parametrów z ustawień aplikacji do buildera
             conStrBuilder.UserID = Properties.Settings.Default.userID;
             conStrBuilder.Server = Properties.Settings.Default.server;
             conStrBuilder.Database = Properties.Settings.Default.database;
@@ -34,6 +35,7 @@ namespace FlashCards.DAL
             conStrBuilder.Password = Properties.Settings.Default.password;
         }
 
+        // Zwrócenie połączenia
         public MySqlConnection Connection => new MySqlConnection(conStrBuilder.ToString());
     }
 }

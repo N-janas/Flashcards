@@ -38,18 +38,18 @@ namespace FlashCards.DAL.Zbiory
                 connection.Open();
                 var id = cmd.ExecuteNonQuery();
                 state = true;
-                wk.Id = (long)cmd.LastInsertedId; // long? hmm ?
+                wk.Id = (ulong)cmd.LastInsertedId;
                 connection.Close();
             }
             return state;
         }
 
-        public static bool EditWordKnowledge(WordKnowledge wk, long? idWk)
+        public static bool EditWordKnowledge(WordKnowledge wk, ulong? idWk)
         {
             bool state = false;
             using(var connection = DBConnection.Instance.Connection)
             {
-                // inny update string ( i moze dodac parametr w funkcji z + ile pkt )
+                // Aktualizacja krotki (jeśli wymagana) w miejscu poprzednika (zmiana tylko knowledge)
                 string AKTUALIZUJ_POZIOM = $"UPDATE wordknowledge SET knowledge={wk.Knowledge} WHERE ID={idWk}";
                 MySqlCommand cmd = new MySqlCommand(AKTUALIZUJ_POZIOM, connection);
                 connection.Open();
