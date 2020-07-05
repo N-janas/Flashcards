@@ -185,8 +185,22 @@ namespace FlashCards.ViewModel
 
             FindMinAndMaxKnowledge(frontBackList, out sbyte maxKnowledge, out sbyte minKnowledge);
 
+<<<<<<< HEAD
+            sbyte difference = minKnowledge;
+            difference -= maxKnowledge;
+
+            sbyte tempDifference = difference;
+            sbyte differenceDecreaser = 1;
+            while(tempDifference > 5)
+            {
+                tempDifference /= 2;
+                differenceDecreaser += 1;
+            }
+                
+=======
             sbyte difference = maxKnowledge;
             difference -= minKnowledge;
+>>>>>>> 699e4a430fa9cb8da235e4e4893b84166a30c470
 
             // Tworzenie kolejki z której będą losowane słowa
             List<Word> queue = new List<Word>();
@@ -195,9 +209,18 @@ namespace FlashCards.ViewModel
             // na wylosowanie słówek mniej znanych (wyznacznik knowledgeLevel)
             foreach (FrontBack frontBack in frontBackList)
             {
+                sbyte ownDifference = difference;
+                ownDifference /= differenceDecreaser;
                 sbyte repetitions = maxKnowledge;
+                repetitions += ownDifference;
                 repetitions -= frontBack.Knowledge;
                 repetitions += 1;
+
+                if (repetitions > 5)
+                    repetitions = 5;
+
+                if (repetitions <= 0)
+                    repetitions = 1;
 
                 for (int i = 0; i < repetitions; i++)
                 {
@@ -208,11 +231,29 @@ namespace FlashCards.ViewModel
                         queue.Add(frontBack.Back);
 
                 }
+
             }
 
             queue = Shuffle(queue);
+
+            foreach (Word item in queue)
+            {
+                Debug.WriteLine(item);
+            }
+
             return queue;
         }
+
+        public bool ValidateString(string str)
+        {
+            foreach(char c in str)
+            {
+                if (c == ';' || c == '\'' || c == '-')
+                    return false;
+            }
+            return true;
+        }
+
         #endregion
 
         #region Komendy
