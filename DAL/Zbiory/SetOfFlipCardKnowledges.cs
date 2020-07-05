@@ -45,9 +45,36 @@ namespace FlashCards.DAL.Zbiory
             return state;
         }
 
+        public static bool EditFlipCardKnowledge(FlipCardKnowledge fck, ulong? idFkwl)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                // Aktualizacja krotki (jeśli wymagana) w miejscu poprzednika (zmiana tylko knowledge)
+                string AKTUALIZUJ_POZIOM = $"UPDATE flipcardknowledge SET knowledge={fck.Knowledge} WHERE ID={idFkwl}";
+                MySqlCommand cmd = new MySqlCommand(AKTUALIZUJ_POZIOM, connection);
+                connection.Open();
+                var n = cmd.ExecuteNonQuery();
+                if (n == 1) state = true;
+
+                connection.Close();
+            }
+            return state;
+        }
+
         public static bool DeleteFlipCardKnowledge(FlipCardKnowledge fck)
         {
-            throw new NotImplementedException();
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand cmd = new MySqlCommand(query.delete_flipCard_knowledge + $"{fck.Id}", connection);
+                connection.Open();
+                var n = cmd.ExecuteNonQuery();
+                if (n == 1) state = true;
+
+                connection.Close();
+            }
+            return state;
         }
         #endregion
     }

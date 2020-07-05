@@ -10,7 +10,7 @@ namespace FlashCards.DAL.Encje
     class FlipCardKnowledge
     {
         #region Własności
-        public byte? Id { get; set; }
+        public ulong? Id { get; set; }
         public sbyte Id_User { get; set; }
         public uint Id_FlipCard { get; set; }
         public sbyte Knowledge { get; set; }
@@ -20,7 +20,7 @@ namespace FlashCards.DAL.Encje
         #region Konstruktory
         public FlipCardKnowledge(MySqlDataReader reader)
         {
-            Id = byte.Parse(reader["ID"].ToString());
+            Id = ulong.Parse(reader["ID"].ToString());
             Id_User = sbyte.Parse(reader["ID_User"].ToString());
             Id_FlipCard = uint.Parse(reader["ID_FlipCard"].ToString());
             Knowledge = sbyte.Parse(reader["Knowledge"].ToString());

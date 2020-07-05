@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="FlashCards.View.EditFlaszkardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlashCards.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid Background="White" DataContext="{StaticResource sharedViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBox Margin="10" TextAlignment="Center" FontSize="17" Text="{Binding EfcardVM.DeckTitle}" VerticalAlignment="Bottom"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <ListBox Margin="20" Background="LightGray" ItemsSource="{Binding EfcardVM.SetOfFlipCards}"
+                             SelectedItem="{Binding EfcardVM.SelectedFlipCard}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding EfcardVM.LoadFlipCard}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </ListBox>
+
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Label  FontSize="14" Content="Przód" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Label  FontSize="14" Content="Tył" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBox Margin="10" Text="{Binding EfcardVM.Front}" TextAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBox Margin="10" Text="{Binding EfcardVM.Back}" TextAlignment="Center" />
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Button Margin="10" Content="Edytuj" Command="{Binding EfcardVM.Edytuj}"/>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Button Margin="10" Content="Dodaj" Background="LightGray" Command="{Binding EfcardVM.Dodaj}"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Button Margin="10" Content="Usuń" Background="LightGray" Command="{Binding EfcardVM.Usun}"/>
+                        </Grid>
+                    </Grid>
+                    <Button Grid.Row="4" Margin="10" Content="Zakończ Edycję" Command="{Binding EfcardVM.Exit}"/>
+
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

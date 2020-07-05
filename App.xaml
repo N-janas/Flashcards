@@ -20,6 +20,10 @@
         <DataTemplate DataType="{x:Type viewmodels:LanguageTrainingVM}">
             <views:LanguageTraining/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:EditFlaszkardViewModel}">
+            <views:EditFlaszkardView/>
+        </DataTemplate>
         
     </Application.Resources>
 </Application>

@@ -74,8 +74,65 @@
             </TabItem>
 
             
-            <TabItem Header=" Fiszki ">
+            <TabItem Header=" Fiszki " IsSelected="{Binding TabPage.IsSelectedFlipCardTab}">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
+                    <Grid Grid.Column="0" Margin="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="11*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <ListBox  Margin="20"  Grid.Row="0" Background="LightGray" ItemsSource="{Binding Path=TabPage.FcardTabVM.SetOfDecks, Mode=TwoWay}" 
+                                      SelectedItem="{Binding Path=TabPage.FcardTabVM.SelectedDeck}">
+
+                            </ListBox>
+                            <Button Content="Wyloguj" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" FontSize="15"
+                                    Command="{Binding TabPage.FcardTabVM.Wroc}" Margin="-3,0,0,-3"/>
+
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBox Margin="10" Text="{Binding TabPage.FcardTabVM.DeckTitle}" TextAlignment="Center" FontSize="15"/>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Button Margin="10" Content="Edytuj" Command="{Binding TabPage.FcardTabVM.Edytuj}"/>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="10" Content="Dodaj" Command="{Binding TabPage.FcardTabVM.Dodaj}"/>
+                                <Button Grid.Column="1" Margin="10" Content="Usuń" Command="{Binding TabPage.FcardTabVM.Usun}"/>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Button Margin="10" Content="Trenuj" Command="{Binding TabPage.FcardTabVM.Trenuj}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

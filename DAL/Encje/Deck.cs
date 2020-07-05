@@ -24,7 +24,7 @@ namespace FlashCards.DAL.Encje
         public Deck(string deckname)
         {
             Id = null;
-            DeckName = deckname;
+            DeckName = deckname.Trim();
         }
         #endregion
 
@@ -36,6 +36,18 @@ namespace FlashCards.DAL.Encje
         public string ToInsert()
         {
             return $"('{DeckName}')";
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var deck = obj as Deck;
+            if (deck is null) return false;
+            if (DeckName.ToLower() != deck.DeckName.ToLower()) return false;
+            return true;
         }
         #endregion
     }

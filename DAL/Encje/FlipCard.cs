@@ -29,8 +29,8 @@ namespace FlashCards.DAL.Encje
         public FlipCard(string frontcontent, string backcontent, sbyte id_deck)
         {
             Id = null;
-            FrontContent = frontcontent;
-            BackContent = backcontent;
+            FrontContent = frontcontent.Trim();
+            BackContent = backcontent.Trim();
             Id_Deck = id_deck;
         }
         #endregion
@@ -43,6 +43,20 @@ namespace FlashCards.DAL.Encje
         public string ToInsert()
         {
             return $"('{FrontContent}', '{BackContent}', {Id_Deck})";
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var card = obj as FlipCard;
+            if (card is null) return false;
+            if (FrontContent.ToLower() != card.FrontContent.ToLower()) return false;
+            if (BackContent.ToLower() != card.BackContent.ToLower()) return false;
+            if (Id_Deck != card.Id_Deck) return false;
+            return true;
         }
         #endregion
     }
