@@ -185,7 +185,6 @@ namespace FlashCards.ViewModel
 
             FindMinAndMaxKnowledge(frontBackList, out sbyte maxKnowledge, out sbyte minKnowledge);
 
-<<<<<<< HEAD
             sbyte difference = minKnowledge;
             difference -= maxKnowledge;
 
@@ -196,11 +195,6 @@ namespace FlashCards.ViewModel
                 tempDifference /= 2;
                 differenceDecreaser += 1;
             }
-                
-=======
-            sbyte difference = maxKnowledge;
-            difference -= minKnowledge;
->>>>>>> 699e4a430fa9cb8da235e4e4893b84166a30c470
 
             // Tworzenie kolejki z której będą losowane słowa
             List<Word> queue = new List<Word>();
