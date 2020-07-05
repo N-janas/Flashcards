@@ -45,9 +45,35 @@ namespace FlashCards.DAL.Zbiory
             return state;
         }
 
+        public static bool EditFlipCard(FlipCard fpc, uint idFpc, sbyte idDeck)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string EDYTUJ_FLIPCARD = $"UPDATE flipcard SET FrontContent='{fpc.FrontContent}', BackContent='{fpc.BackContent}' WHERE ID={idFpc} AND ID_Deck={idDeck}";
+                MySqlCommand cmd = new MySqlCommand(EDYTUJ_FLIPCARD, connection);
+                connection.Open();
+                var n = cmd.ExecuteNonQuery();
+                if (n == 1) state = true;
+
+                connection.Close();
+            }
+            return state;
+        }
+
         public static bool DeleteFlipCard(FlipCard fc)
         {
-            throw new NotImplementedException();
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand cmd = new MySqlCommand(query.delete_flipCard + $"{fc.Id}", connection);
+                connection.Open();
+                var n = cmd.ExecuteNonQuery();
+                if (n == 1) state = true;
+
+                connection.Close();
+            }
+            return state;
         }
         #endregion
     }

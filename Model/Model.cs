@@ -53,7 +53,138 @@ namespace FlashCards.Model
         }
 
         #region Metody fiszek
+        public ObservableCollection<FlipCard> PassDeckContent(Deck deck)
+        {
+            ObservableCollection<FlipCard> tmp = new ObservableCollection<FlipCard>();
+            foreach (var fcard in FlipCards)
+            {
+                if (fcard.Id_Deck == deck.Id)
+                {
+                    tmp.Add(fcard);
+                }
+            }
 
+            return tmp;
+        }
+        // Sprawdza też czy w danej talii
+        public bool FlipCardExist(FlipCard fc) => FlipCards.Contains(fc);
+        public bool AddFlipCardToFCs(string front, string back, sbyte id_deck)
+        {
+            FlipCard fc = new FlipCard(front, back, id_deck);
+
+            if (!FlipCardExist(fc))
+            {
+                if (SetOfFlipCards.AddNewFlipCard(fc))
+                {
+                    FlipCards.Add(fc);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool DeckExist(Deck d) => Decks.Contains(d);
+        public bool AddDeckToDecks(string deckName)
+        {
+            Deck d = new Deck(deckName);
+
+            if (!DeckExist(d))
+            {
+                if (SetOfDecks.AddNewDeck(d))
+                {
+                    Decks.Add(d);
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool DeleteFlipcard(FlipCard flipCard)
+        {
+            // Przeszukaj knowledege leveli dla flipcarda
+            foreach (var knowledge in FlipCardKnowledges)
+            {
+                // Jeśli znaleziono usuń
+                if (flipCard.Id == knowledge.Id_FlipCard)
+                {
+                    if (SetOfFlipCardKnowledges.DeleteFlipCardKnowledge(knowledge))
+                    {
+                        FlipCardKnowledges.Remove(knowledge);
+                    }
+                }
+            }
+
+            if (SetOfFlipCards.DeleteFlipCard(flipCard))
+            {
+                FlipCards.Remove(flipCard);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DeleteDeck(Deck deck)
+        {
+            // Jeśli deck istnieje
+            if (DeckExist(deck))
+            {
+                // To szukaj czy miał kontent
+                foreach (var flipcard in FlipCards)
+                {
+                    // Jeśli flipcard należał do talii
+                    if (flipcard.Id_Deck == deck.Id)
+                    {
+                        // Przeszukaj odpowiadających FlipCardKnowledges
+                        foreach (var flipcardKnowledge in FlipCardKnowledges)
+                        {
+                            // Jeśli znaleziono knowledgeLevel dla tego flipcarda też usuń
+                            if (flipcardKnowledge.Id_FlipCard == flipcard.Id)
+                            {
+                                if (SetOfFlipCardKnowledges.DeleteFlipCardKnowledge(flipcardKnowledge))
+                                {
+                                    FlipCardKnowledges.Remove(flipcardKnowledge);
+                                }
+                            }
+                        }
+                        // Usuń samego flipcarda
+                        if (SetOfFlipCards.DeleteFlipCard(flipcard))
+                        {
+                            FlipCards.Remove(flipcard);
+                        }
+                    }
+                }
+
+                // Usuń samą talie
+                if (SetOfDecks.DeleteDeck(deck))
+                {
+                    Decks.Remove(deck);
+                    return true;
+                }              
+            }
+            return false;
+        }
+
+        public bool EditFlipCardContent(FlipCard oldFlipCard, FlipCard newFlipCard)
+        {
+            if (!FlipCardExist(newFlipCard))
+            {
+                if (SetOfFlipCards.EditFlipCard(newFlipCard, (uint)oldFlipCard.Id, newFlipCard.Id_Deck))
+                {
+                    newFlipCard.Id = oldFlipCard.Id;
+                    FlipCards[FlipCards.IndexOf(oldFlipCard)] = newFlipCard;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void EditDeckTitle(Deck oldDeck, Deck newDeck)
+        {
+            if(SetOfDecks.EditDeck(newDeck, (sbyte)oldDeck.Id))
+            {
+                newDeck.Id = oldDeck.Id;
+                Decks[Decks.IndexOf(oldDeck)] = newDeck;
+            }
+        }
         #endregion
 
         #region Metody języków

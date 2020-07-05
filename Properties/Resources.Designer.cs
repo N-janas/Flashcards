@@ -61,7 +61,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu .
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `deck` (`DeckName`) VALUES.
         /// </summary>
         internal static string add_deck {
             get {
@@ -70,7 +70,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu .
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `flipcard` (`FrontContent`, `BackContent`, `ID_Deck`) VALUES.
         /// </summary>
         internal static string add_flip_card {
             get {
@@ -165,6 +165,33 @@ namespace FlashCards.Properties {
         internal static string all_words {
             get {
                 return ResourceManager.GetString("all_words", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu DELETE FROM `deck` WHERE ID=.
+        /// </summary>
+        internal static string delete_deck {
+            get {
+                return ResourceManager.GetString("delete_deck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu DELETE FROM `flipcard` WHERE ID=.
+        /// </summary>
+        internal static string delete_flipCard {
+            get {
+                return ResourceManager.GetString("delete_flipCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu DELETE FROM `flipcardknowledge` WHERE ID=.
+        /// </summary>
+        internal static string delete_flipCard_knowledge {
+            get {
+                return ResourceManager.GetString("delete_flipCard_knowledge", resourceCulture);
             }
         }
         

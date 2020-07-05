@@ -74,3 +74,5 @@ C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.exe
 C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.pdb
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.g.cs
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.baml
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\EditFlaszkardView.g.cs
+C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\EditFlaszkardView.baml

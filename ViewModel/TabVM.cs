@@ -9,6 +9,13 @@ namespace FlashCards.ViewModel
     using FlashCards.Model;
     class TabVM : BaseViewModel
     {
+        private bool isSelectedFlipCardTab = false;
+        public bool IsSelectedFlipCardTab
+        {
+            get { return isSelectedFlipCardTab; }
+            set { isSelectedFlipCardTab = value; onPropertyChanged(nameof(isSelectedFlipCardTab)); }
+        }
+
         private sbyte? loggedUser = null;
 
         public sbyte? LoggedUser
@@ -25,13 +32,13 @@ namespace FlashCards.ViewModel
             set { langTabVM = value; onPropertyChanged(nameof(LangTabVM)); }
         }
 
-        // private FlashCardTabViewModel fcardTabVM = null;
+        private FlaszkardsViewModel fcardTabVM = null;
 
-        //public FlashCardTabViewModel FcardTabVM
-        //{
-        //    get { return fcardTabVM; }
-        //    set { fcardTabVM = value; onPropertyChanged(nameof(FcardTabVM)); }
-        //}
+        public FlaszkardsViewModel FcardTabVM
+        {
+            get { return fcardTabVM; }
+            set { fcardTabVM = value; onPropertyChanged(nameof(FcardTabVM)); }
+        }
 
         #endregion
 
@@ -45,7 +52,7 @@ namespace FlashCards.ViewModel
         {
             LoggedUser = user;
             LangTabVM = new LanguagesTabViewModel(model, user);
-            // FcardTabVM = new FlashCardTabViewModel(model, user);
+            FcardTabVM = new FlaszkardsViewModel(model, user);
         }
 
         #endregion

@@ -109,11 +109,12 @@ namespace FlashCards.ViewModel
             user = id_user;
             Title = langA+" -> "+langB.LangName;
             _translation = langB;
+            //foreach (var w in Questions)
+            //{
+            //    Console.WriteLine(w);
+            //}
             GetNewWord();
-            foreach (var w in Questions)
-            {
-                Console.WriteLine(w);
-            }
+
         }
         #endregion
 
@@ -323,7 +324,8 @@ namespace FlashCards.ViewModel
                     goBack = new RelayCommand(
                         arg =>
                         {
-                            Mediator.Notify("BackFromTrain1", "");
+                            // Wrzucamy false aby wrócić do zakładki języków
+                            Mediator.Notify("BackFromTrain1", false);
                         },
                         arg => true
                         );

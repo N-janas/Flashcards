@@ -55,6 +55,13 @@ namespace FlashCards.ViewModel
             get { return langTrain; }
             set { langTrain = value; onPropertyChanged(nameof(LangTrain)); }
         }
+
+        private EditFlaszkardViewModel efcardVM = null;
+        public EditFlaszkardViewModel EfcardVM
+        {
+            get { return efcardVM; }
+            set { efcardVM = value; onPropertyChanged(nameof(EfcardVM)); }
+        }
         #endregion
 
         public MainViewModel()
@@ -63,11 +70,13 @@ namespace FlashCards.ViewModel
             LoginPage = new LoggingPageViewModel(model);
             TabPage = new TabVM();
             LangTrain = new LanguageTrainingVM();
+            EfcardVM = new EditFlaszkardViewModel();
 
             // Wpisanie ich na miejsca w liście
             Vms.Add(LoginPage);
             Vms.Add(TabPage);
             Vms.Add(LangTrain);
+            Vms.Add(EfcardVM);
 
             this._actualViewModel = LoginPage; // Starter VM
 
@@ -80,7 +89,14 @@ namespace FlashCards.ViewModel
             Mediator.Subscribe("TrainLangs", TrainPredefinedLangs);
             // Mediator GoBack from train1
             Mediator.Subscribe("BackFromTrain1", GoBackFromTrainLang);
+
+            // Mediator EditFlashCard
+            Mediator.Subscribe("EditFlashCard", GoToEditionScreen);
+            // Mediator GoBack from edition
+            Mediator.Subscribe("BackFromEditionFC", GoBackFromEditionScreen);
             // Mediator train2
+
+            // Mediator GoBack from train2
 
         }
 
@@ -91,6 +107,22 @@ namespace FlashCards.ViewModel
                 Vms.Add(viewModel);
 
             ActualViewModel = Vms.FirstOrDefault(vm => vm == viewModel); // hmm ?
+        }
+
+        private void GoToEditionScreen(object obj)
+        {
+            // przesłanie talii do edycji
+            Deck selectedDeck = obj as Deck;
+            EfcardVM = new EditFlaszkardViewModel(model, selectedDeck, TabPage.LoggedUser);
+            ChangeViewModel(Vms[3]);
+        }
+
+        private void GoBackFromEditionScreen(object obj)
+        {
+            // ustawienie odpowiedniej zakładki wracając
+            bool selection = (bool)obj;
+            TabPage.IsSelectedFlipCardTab = selection;
+            ChangeViewModel(Vms[1]);
         }
 
         private void GoToTabsScreen(object obj)
@@ -128,6 +160,9 @@ namespace FlashCards.ViewModel
 
         private void GoBackFromTrainLang(object obj)
         {
+            // ustawienie odpowiedniej zakładki wracając
+            bool selection = (bool)obj;
+            TabPage.IsSelectedFlipCardTab = selection;
             // Powrót do ekranu zakładek
             ChangeViewModel(Vms[1]);
         }

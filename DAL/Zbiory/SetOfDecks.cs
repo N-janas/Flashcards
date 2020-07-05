@@ -46,9 +46,35 @@ namespace FlashCards.DAL.Zbiory
             return state;
         }
 
-        public static bool DeleteDeck(Deck d)
+        public static bool EditDeck(Deck deck, sbyte idDeck)
         {
-            throw new NotImplementedException();
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string EDYTUJ_NAZWE_TALII = $"UPDATE deck SET DeckName='{deck.DeckName}' WHERE ID={idDeck}";
+                MySqlCommand cmd = new MySqlCommand(EDYTUJ_NAZWE_TALII, connection);
+                connection.Open();
+                var n = cmd.ExecuteNonQuery();
+                if (n == 1) state = true;
+
+                connection.Close();
+            }
+            return state;
+        }
+
+        public static bool DeleteDeck(Deck deck)
+        {
+            bool state = false;
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand cmd = new MySqlCommand(query.delete_deck + $"{deck.Id}", connection);
+                connection.Open();
+                var n = cmd.ExecuteNonQuery();
+                if (n == 1) state = true;
+
+                connection.Close();
+            }
+            return state;
         }
         #endregion
     }

@@ -102,13 +102,22 @@
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
     <Compile Include="ViewModel\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\EditFlaszkardViewModel.cs" />
+    <Compile Include="ViewModel\FlaszkardsViewModel.cs" />
     <Compile Include="ViewModel\LanguageTrainingVM.cs" />
+    <Compile Include="View\EditFlaszkardView.xaml.cs">
+      <DependentUpon>EditFlaszkardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LanguageTraining.xaml.cs">
       <DependentUpon>LanguageTraining.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Tabs.xaml.cs">
       <DependentUpon>Tabs.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\EditFlaszkardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LanguageTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
