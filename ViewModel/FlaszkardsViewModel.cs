@@ -60,17 +60,117 @@ namespace FlashCards.ViewModel
         }
         public FlaszkardsViewModel()
         {
-            //jakieś instrukcje
+            //Initialize only
         }
         #endregion
 
         #region Metody
+        private static Random random = new Random();
+
+        public List<FlipCard> Shuffle(List<FlipCard> list)
+        {
+            for (int n = list.Count - 1; n > 1; n--)
+            {
+                int rng = random.Next(n + 1);
+                FlipCard value = list[rng];
+                list[rng] = list[n];
+                list[n] = value;
+            }
+
+            return list;
+        }
+
+        private void FindMinAndMaxKnowledge(List<FlipCardWithKnowledge> flipCardFullList, out sbyte min, out sbyte max)
+        {
+            max = 0;
+            min = 127;
+
+            foreach (FlipCardWithKnowledge flipCardFull in flipCardFullList)
+            {
+                if (flipCardFull.Knowledge > max) max = flipCardFull.Knowledge;
+                if (flipCardFull.Knowledge < min) min = flipCardFull.Knowledge;
+            }
+        }
+
+        public List<FlipCardWithKnowledge> createFlipCardsWithKnowledge(List<FlipCard> flipCardList, List<FlipCardKnowledge> flipCardKnowledgeList)
+        {
+            List<FlipCardWithKnowledge> fullFlipCards = new List<FlipCardWithKnowledge>();
+
+            foreach (FlipCard flipCard in flipCardList)
+            {
+                sbyte knowledge = 0;
+                foreach (FlipCardKnowledge flipCardKnowledge in flipCardKnowledgeList)
+                {
+                    if (flipCard.Id == flipCardKnowledge.Id_FlipCard)
+                        knowledge = flipCardKnowledge.Knowledge;
+                }
+                fullFlipCards.Add(new FlipCardWithKnowledge(flipCard, knowledge));
+            }
+
+            return fullFlipCards;
+        }
+
+        public List<FlipCard> CreateQueue(List<FlipCard> flipCardList, List<FlipCardKnowledge> flipCardKnowledgeList, out List<FlipCardWithKnowledge> fcwk)
+        {
+            List<FlipCardWithKnowledge> fullFlipCards = createFlipCardsWithKnowledge(flipCardList, flipCardKnowledgeList);
+
+            FindMinAndMaxKnowledge(fullFlipCards, out sbyte maxKnowledge, out sbyte minKnowledge);
+
+            fcwk = fullFlipCards;
+
+            sbyte difference = minKnowledge;
+            difference -= maxKnowledge;
+
+            sbyte tempDifference = difference;
+            sbyte differenceDecreaser = 1;
+            while (tempDifference > 5)
+            {
+                tempDifference /= 2;
+                differenceDecreaser += 1;
+            }
+
+            // Tworzenie kolejki z której będą losowane słowa
+            List<FlipCard> queue = new List<FlipCard>();
+
+            // Utworzenie odpowiedniej liczby duplikatów, zwiększającej prawdopodobieństwo
+            // na wylosowanie słówek mniej znanych (wyznacznik knowledgeLevel)
+            foreach (FlipCardWithKnowledge flipCardFull in fullFlipCards)
+            {
+                sbyte ownDifference = difference;
+                ownDifference /= differenceDecreaser;
+                sbyte repetitions = maxKnowledge;
+                repetitions += ownDifference;
+                repetitions -= flipCardFull.Knowledge;
+                repetitions += 1;
+
+                if (repetitions > 5)
+                    repetitions = 5;
+
+                if (repetitions <= 0)
+                    repetitions = 1;
+
+                for (int i = 0; i < repetitions; i++)
+                {
+                    queue.Add(flipCardFull.FlipCard);
+                }
+
+            }
+
+            queue = Shuffle(queue);
+
+            foreach (FlipCard item in queue)
+            {
+                System.Diagnostics.Debug.WriteLine(item);
+            }
+
+            return queue;
+        }
         private void ClearForm()
         {
             DeckTitle = "";
             SelectedDeck = null;
         }
-        // Reague na selected
+        // Reaguje na selected
         private void Edit(object obj)
         {
             // Przejście do edycji talii podając wybraną talię
@@ -108,10 +208,30 @@ namespace FlashCards.ViewModel
             else
                 System.Windows.MessageBox.Show("Wybierz talię");
         }
-        // Reague na selected
+        // Reaguje na selected
         private void Train(object obj)
         {
-            throw new NotImplementedException();
+            if (SelectedDeck != null)
+            {
+                List<List<TrainData>> daneTreningowe = new List<List<TrainData>>();
+
+                List<FlipCard> queue = CreateQueue(
+                    model.PassFlipCardCollection((sbyte)SelectedDeck.Id),
+                    model.PassUserPerformanceFC(_loggedUser, (sbyte)SelectedDeck.Id),
+                    out List<FlipCardWithKnowledge> fcwk
+                    );
+
+                if (queue.Any())
+                {
+                    daneTreningowe.Add(queue.Cast<TrainData>().ToList());
+                    daneTreningowe.Add(fcwk.Cast<TrainData>().ToList());
+                    Mediator.Notify("TrainFC", daneTreningowe);
+                }
+                else
+                    System.Windows.MessageBox.Show("Talia jest pusta");
+            }
+            else
+                System.Windows.MessageBox.Show("Wybierz talię do treningu");
         }
         private void LogOut(object obj)
         {

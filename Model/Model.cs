@@ -101,7 +101,7 @@ namespace FlashCards.Model
         public bool DeleteFlipcard(FlipCard flipCard)
         {
             // Przeszukaj knowledege leveli dla flipcarda
-            foreach (var knowledge in FlipCardKnowledges)
+            foreach (var knowledge in FlipCardKnowledges.ToList())
             {
                 // Jeśli znaleziono usuń
                 if (flipCard.Id == knowledge.Id_FlipCard)
@@ -128,13 +128,13 @@ namespace FlashCards.Model
             if (DeckExist(deck))
             {
                 // To szukaj czy miał kontent
-                foreach (var flipcard in FlipCards)
+                foreach (var flipcard in FlipCards.ToList())
                 {
                     // Jeśli flipcard należał do talii
                     if (flipcard.Id_Deck == deck.Id)
                     {
                         // Przeszukaj odpowiadających FlipCardKnowledges
-                        foreach (var flipcardKnowledge in FlipCardKnowledges)
+                        foreach (var flipcardKnowledge in FlipCardKnowledges.ToList())
                         {
                             // Jeśli znaleziono knowledgeLevel dla tego flipcarda też usuń
                             if (flipcardKnowledge.Id_FlipCard == flipcard.Id)
@@ -165,6 +165,7 @@ namespace FlashCards.Model
 
         public bool EditFlipCardContent(FlipCard oldFlipCard, FlipCard newFlipCard)
         {
+            // Jeśli istnieje to aktualizuj w bazie
             if (!FlipCardExist(newFlipCard))
             {
                 if (SetOfFlipCards.EditFlipCard(newFlipCard, (uint)oldFlipCard.Id, newFlipCard.Id_Deck))
@@ -184,6 +185,76 @@ namespace FlashCards.Model
                 newDeck.Id = oldDeck.Id;
                 Decks[Decks.IndexOf(oldDeck)] = newDeck;
             }
+        }
+
+        public bool FlipCardKnowledgeExist(FlipCardKnowledge f) => FlipCardKnowledges.Contains(f);
+        public void UpdateFlipCardKnowledge(FlipCardKnowledge flipKnowledge)
+        {
+            if (FlipCardKnowledgeExist(flipKnowledge))
+            {
+                // Edycja (użycie Update)
+                // Znajdź poprzednią wersję
+                var oldLevel = FlipCardKnowledges[FlipCardKnowledges.IndexOf(flipKnowledge)];
+                // Czy zmienił poziom w danej krotce
+                if (oldLevel.Knowledge != flipKnowledge.Knowledge)
+                {
+                    // Jeśli tak to edytuj w bazie 
+                    if (SetOfFlipCardKnowledges.EditFlipCardKnowledge(flipKnowledge, oldLevel.Id))
+                    {
+                        // i edytuj w kolekcji
+                        flipKnowledge.Id = oldLevel.Id;
+                        FlipCardKnowledges[FlipCardKnowledges.IndexOf(oldLevel)] = flipKnowledge;
+                    }
+
+                }
+            }
+            else // Jeśli nowa krotka to
+            {
+                // Dodaj nowe ( użycie SetOf...Add (index się doda))
+                if (SetOfFlipCardKnowledges.AddNewFlipCardKnowledge(flipKnowledge))
+                {
+                    // Dodaj do listy (z indexem)
+                    FlipCardKnowledges.Add(flipKnowledge);
+                }
+            }
+        }
+
+        public List<FlipCard> PassFlipCardCollection(sbyte deck_id)
+        {
+            List<FlipCard> flipCards = new List<FlipCard>();
+            foreach (var fc in FlipCards)
+            {
+                // Uzupełnianie talii
+                if (fc.Id_Deck == deck_id)
+                    flipCards.Add(fc);
+            }
+            return flipCards;
+        }
+
+        private FlipCard FindFlipCardById(uint id)
+        {
+            foreach (var f in FlipCards)
+            {
+                if (f.Id == id)
+                    return f;
+            }
+            return null;
+        }
+
+        public List<FlipCardKnowledge> PassUserPerformanceFC(sbyte? user_id, sbyte deck)
+        {
+            List<FlipCardKnowledge> currentUserPerformance = new List<FlipCardKnowledge>();
+
+            foreach (var fcKnowledge in FlipCardKnowledges)
+            {
+                // Jeśli krotka jest usera i z danej talii
+                if (fcKnowledge.Id_User == user_id && deck == FindFlipCardById(fcKnowledge.Id_FlipCard).Id_Deck)
+                {
+                    currentUserPerformance.Add(fcKnowledge);
+                }
+            }
+            // Przekazanie krotek z obecnym uczeniem użytkownika
+            return currentUserPerformance;
         }
         #endregion
 
@@ -303,8 +374,6 @@ namespace FlashCards.Model
 
         public void UpdateWordKnowledge(WordKnowledge knowledge)
         {
-            //foreach (var knowledge in updatedPerfSet)
-            //{
             // Equals ovveride bez sprawdzania level, więc szuka tylko krotki wg.: id_front, id_back, id_user
             // Check czy user już sie tego uczył
             if (WordKnowledgeExists(knowledge))
@@ -334,8 +403,6 @@ namespace FlashCards.Model
                 }
 
             }
-
-            //}
         }
         #endregion
     }

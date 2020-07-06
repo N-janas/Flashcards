@@ -61,7 +61,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `deck` (`DeckName`) VALUES.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `deck` (`DeckName`) VALUES (@deckName);.
         /// </summary>
         internal static string add_deck {
             get {
@@ -70,7 +70,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `flipcard` (`FrontContent`, `BackContent`, `ID_Deck`) VALUES.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `flipcard` (`FrontContent`, `BackContent`, `ID_Deck`) VALUES (@frontC, @backC, @idD);.
         /// </summary>
         internal static string add_flip_card {
             get {
@@ -88,7 +88,7 @@ namespace FlashCards.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `users` (`Name`, `Surname`) VALUES.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu INSERT INTO `users` (`Name`, `Surname`) VALUES (@uName, @uSurname);.
         /// </summary>
         internal static string add_user {
             get {
@@ -192,33 +192,6 @@ namespace FlashCards.Properties {
         internal static string delete_flipCard_knowledge {
             get {
                 return ResourceManager.GetString("delete_flipCard_knowledge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu .
-        /// </summary>
-        internal static string edit_flip_card {
-            get {
-                return ResourceManager.GetString("edit_flip_card", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu .
-        /// </summary>
-        internal static string edit_flip_card_knowledge {
-            get {
-                return ResourceManager.GetString("edit_flip_card_knowledge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu .
-        /// </summary>
-        internal static string edit_word_knowledge {
-            get {
-                return ResourceManager.GetString("edit_word_knowledge", resourceCulture);
             }
         }
     }

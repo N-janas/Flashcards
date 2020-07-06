@@ -36,12 +36,24 @@ namespace FlashCards.DAL.Zbiory
             bool state = false;
             using(var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand cmd = new MySqlCommand($"{query.add_user} {u.ToInsert()}", connection);
-                connection.Open();
-                var id = cmd.ExecuteNonQuery();
-                state = true;
-                u.Id = (sbyte)cmd.LastInsertedId;
-                connection.Close();
+                MySqlCommand cmd = new MySqlCommand(query.add_user, connection);
+                // Parametryczny string do zabezpieczenia przed SQL Injection
+                cmd.Parameters.AddWithValue("@uName", u.Name);
+                cmd.Parameters.AddWithValue("@uSurname", u.Surname);
+
+                try
+                {
+                    connection.Open();
+                    var id = cmd.ExecuteNonQuery();
+                    state = true;
+                    u.Id = (sbyte)cmd.LastInsertedId;
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
             }
             return state;
         }

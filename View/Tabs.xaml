@@ -114,7 +114,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
-                                <TextBox Margin="10" Text="{Binding TabPage.FcardTabVM.DeckTitle}" TextAlignment="Center" FontSize="15"/>
+                                <TextBox Margin="10" Text="{Binding TabPage.FcardTabVM.DeckTitle}" TextAlignment="Center" FontSize="15" MaxLength="60"/>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <Button Margin="10" Content="Edytuj" Command="{Binding TabPage.FcardTabVM.Edytuj}"/>

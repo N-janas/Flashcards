@@ -74,13 +74,89 @@ C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.exe
 C:\Users\admin\source\repos\Fiszki\obj\Debug\FlashCards.pdb
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.g.cs
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\LanguageTraining.baml
-<<<<<<< HEAD
-<<<<<<< HEAD
-C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LanguageTraining.g.cs
-C:\Users\admin\source\repos\Fiszki\obj\Debug\View\LanguageTraining.baml
-=======
->>>>>>> 699e4a430fa9cb8da235e4e4893b84166a30c470
-=======
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\EditFlaszkardView.g.cs
 C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\View\EditFlaszkardView.baml
->>>>>>> 70e7e0065379b85316801b013536527bb239d3f9
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\FlashCards.exe.config
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\FlashCards.exe
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\FlashCards.pdb
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\MySqlConnector.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Buffers.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Memory.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\MySqlConnector.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Buffers.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Memory.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.csprojAssemblyReference.cache
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\EditFlaszkardView.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\LanguageTraining.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\LoggingPage.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\MainWindow.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\Tabs.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\App.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards_MarkupCompile.cache
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards_MarkupCompile.lref
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\App.baml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\EditFlaszkardView.baml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\LanguageTraining.baml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\LoggingPage.baml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\MainWindow.baml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\View\Tabs.baml
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.g.resources
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.Properties.Resources.resources
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.csproj.GenerateResource.cache
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.csproj.CopyComplete
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.exe
+C:\Users\njana\Desktop\Flashcards-70e7e0065379b85316801b013536527bb239d3f9\obj\Debug\FlashCards.pdb
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.csprojAssemblyReference.cache
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\EditFlaszkardView.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\FlipCardTraining.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\LanguageTraining.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\LoggingPage.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\MainWindow.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\Tabs.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\App.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards_MarkupCompile.cache
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards_MarkupCompile.lref
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.exe
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.pdb
+C:\Users\njana\Desktop\Flashcards\bin\Debug\FlashCards.exe.config
+C:\Users\njana\Desktop\Flashcards\bin\Debug\FlashCards.exe
+C:\Users\njana\Desktop\Flashcards\bin\Debug\FlashCards.pdb
+C:\Users\njana\Desktop\Flashcards\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\MySqlConnector.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Buffers.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Memory.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\njana\Desktop\Flashcards\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\MySqlConnector.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Buffers.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Memory.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\njana\Desktop\Flashcards\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\App.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\EditFlaszkardView.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\FlipCardTraining.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\LanguageTraining.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\LoggingPage.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\MainWindow.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\View\Tabs.baml
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.g.resources
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.Properties.Resources.resources
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.csproj.GenerateResource.cache
+C:\Users\njana\Desktop\Flashcards\obj\Debug\FlashCards.csproj.CopyComplete

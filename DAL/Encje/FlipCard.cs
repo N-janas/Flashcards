@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace FlashCards.DAL.Encje
 {
-    class FlipCard
+    class FlipCard : TrainData
     {
         #region Własności
         public uint? Id { get; set; }
@@ -38,7 +38,7 @@ namespace FlashCards.DAL.Encje
         #region Metody
         public override string ToString()
         {
-            return $"{FrontContent} -> {BackContent}"; //jezeli chcielibysmy wrocic do pomyslu z notatnikiem to tak to bedzie wygladac
+            return $"{FrontContent} -> {BackContent}";
         }
         public string ToInsert()
         {

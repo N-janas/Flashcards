@@ -13,19 +13,16 @@ namespace FlashCards.ViewModel
     using DAL.Encje;
     using System.Windows.Input;
 
-    class LanguageTrainingVM : BaseViewModel
+    class FlipCardTrainingVM : BaseViewModel
     {
         #region Pola Prywatne
         private Model model = null;
-        private Word question;
-        private Word answer;
-        private List<Word> questions = null;
-        private List<Word> answers = null;
-        private List<FrontBack> _frontBack = null;
-        private List<WordKnowledge> performance = null;
+        private FlipCard flipCard;
+        private List<FlipCard> flipCards = null;
+        private List<FlipCardWithKnowledge> _flipWithKnowledges = null;
+        private List<FlipCardKnowledge> performance = null;
         private sbyte? user = null;
-        private Language _translation;
-        private string otherTranslations;
+        private Deck currentDeck;
         // Parametr do iteracji (nieskończona sesja = użytkownik stopuje)
         private int iter = 0;
         // Domyślny stan okna
@@ -34,43 +31,20 @@ namespace FlashCards.ViewModel
         #endregion
 
         #region Własności
-        public string OtherTranslations
+
+        public FlipCard FlipCard
         {
-            get { return otherTranslations; }
-            set { otherTranslations = value; onPropertyChanged(nameof(OtherTranslations)); }
+            get { return flipCard; }
+            set { flipCard = value; onPropertyChanged(nameof(FlipCard)); }
         }
 
-        public Word Question
+        public List<FlipCard> FlipCards
         {
-            get { return question; }
-            set { question = value; onPropertyChanged(nameof(Question)); }
+            get { return flipCards; }
+            set { flipCards = value; onPropertyChanged(nameof(FlipCards)); }
         }
 
-        public Word Answer
-        {
-            get { return answer; }
-            set { answer = value; onPropertyChanged(nameof(Answer)); }
-        }
-
-        public List<Word> Questions
-        {
-            get { return questions; }
-            set { questions = value; onPropertyChanged(nameof(Questions)); }
-        }
-
-        public List<Word> Answers
-        {
-            get { return answers; }
-            set { answers = value; onPropertyChanged(nameof(Answers)); }
-        }
-
-        public List<FrontBack> FrontBacks
-        {
-            get { return _frontBack; }
-            set { _frontBack = value; onPropertyChanged(nameof(FrontBacks)); }
-        }
-
-        public List<WordKnowledge> Performance
+        public List<FlipCardKnowledge> Performance
         {
             get { return performance; }
             set { performance = value; onPropertyChanged(nameof(Performance)); }
@@ -91,25 +65,25 @@ namespace FlashCards.ViewModel
         #endregion
 
         #region Konstruktory
-        public LanguageTrainingVM() 
+        public FlipCardTrainingVM()
         {
             // Initialize only
         }
 
-        public LanguageTrainingVM(Model model, List<Word> questions, List<Word> answers, List<FrontBack> frontBack, sbyte? id_user, string langA, Language langB)
+        public FlipCardTrainingVM(Model model, List<FlipCard> setOfFlipcards, List<FlipCardWithKnowledge> fcwk, sbyte id_user, Deck deck)
         {
             this.model = model;
-            Questions = questions;
-            Answers = answers;
-            _frontBack = frontBack;
+            FlipCards = setOfFlipcards;
+            _flipWithKnowledges = fcwk;
             // Inicjalizacja nowej listy z levelem
             // będzie ona uzupełniana i wysyłana do aktualizacji 
             // czestotliwości pojawiania się słów po zakończonej sesji treningowej
-            Performance = new List<WordKnowledge>();
+            Performance = new List<FlipCardKnowledge>();
             user = id_user;
-            Title = langA+" -> "+langB.LangName;
-            _translation = langB;
-            //foreach (var w in Questions)
+            currentDeck = deck;
+            Title = deck.DeckName;
+
+            //foreach (var w in FlipCards)
             //{
             //    Console.WriteLine(w);
             //}
@@ -119,40 +93,38 @@ namespace FlashCards.ViewModel
         #endregion
 
         #region Metody
-        private WordKnowledge SaveProgres(sbyte factor)
+        private FlipCardKnowledge SaveProgres(sbyte factor)
         {
             // Znajdź odpowiednią krotke
-            foreach (var fb in FrontBacks)
+            foreach (var fb in _flipWithKnowledges)
             {
-                // Jeden zawsze nie spełniony, zapisujemy języki z mniejszego na większy i takie sa trzymane w FrontBacks
-                // ale nie jesteśmy pewni w której kolejności się uczy teraz user więc sprawdzamy obie opcje
-                if( (fb.Front == Question && fb.Back == Answer) || (fb.Back == Question && fb.Front == Answer))
+                if (fb.FlipCard == FlipCard)
                 {
                     // I zwróć ją jako odpowiednią w formacie do bazy
                     // Sprawdza czy jest w przedziale 0-127
                     factor += fb.Knowledge;
                     if (factor > 127 || factor < 0)
                     {
-                        return new WordKnowledge(fb.Front.Id, fb.Back.Id, (sbyte)user, fb.Knowledge);
+                        return new FlipCardKnowledge((sbyte)user, (uint)FlipCard.Id, fb.Knowledge);
                     }
                     else
                     {
                         // Zaktualizuj również stan w obecnym oknie
-                        FrontBacks[FrontBacks.IndexOf(fb)].Knowledge = factor;
-                        return new WordKnowledge(fb.Front.Id, fb.Back.Id, (sbyte)user, factor);
-                    }     
+                        _flipWithKnowledges[_flipWithKnowledges.IndexOf(fb)].Knowledge = factor;
+                        return new FlipCardKnowledge((sbyte)user, (uint)FlipCard.Id, factor);
+                    }
                 }
             }
             return null;
         }
 
         private static Random random = new Random();
-        private List<Word> Shuffle(List<Word> list)
+        private List<FlipCard> Shuffle(List<FlipCard> list)
         {
             for (int n = list.Count - 1; n > 1; n--)
             {
                 int rng = random.Next(n + 1);
-                Word value = list[rng];
+                FlipCard value = list[rng];
                 list[rng] = list[n];
                 list[n] = value;
             }
@@ -162,36 +134,15 @@ namespace FlashCards.ViewModel
         private void GetNewWord()
         {
             // Wpisanie przykładu do zgadnięcia
-            Question = Questions[iter++];
-            Answer = FindAnswerByGUID(Question);
+            FlipCard = FlipCards[iter++];
 
             // Jeśli przekraczamy poza tabele, wróć z indeksem i przelosuj przykłady
-            if (iter > Questions.Count-1)
+            if (iter > FlipCards.Count - 1)
             {
                 iter = 0;
-                Questions = Shuffle(Questions);
+                FlipCards = Shuffle(FlipCards);
             }
         }
-
-        private List<Word> FindOtherMeanings(Word origin)
-        {
-            return model.PassOtherTranslations(origin, _translation);
-        }
-
-        private Word FindAnswerByGUID(Word q)
-        {
-            // Znajdź pasującą odpowiedź
-            Word ans = null;
-            // Przeszukuj słowa w odpowiedziach do znalezienia pasującego GUIDA
-            foreach (var w in Answers)
-                if (w.GUID == q.GUID)
-                {
-                    ans = w;
-                    break;
-                } 
-            return ans;
-        }
-
         #endregion
 
         #region Komendy
@@ -202,25 +153,11 @@ namespace FlashCards.ViewModel
         {
             get
             {
-                if(showAnswer == null)
+                if (showAnswer == null)
                 {
                     showAnswer = new RelayCommand(
                         arg =>
                         {
-                            // Jeśli są inne tłumaczenia to znajdź 
-                            List<Word> others = FindOtherMeanings(Question);
-                            if (others.Any())
-                            {
-                                // I wyświetl
-                                OtherTranslations = "Inne : ";
-                                foreach (var other in others)
-                                {
-                                    OtherTranslations += other + ", ";
-                                }
-                            }
-                            else
-                                OtherTranslations = "";
-
                             // Zmiana stanu na ocenianie
                             IsUserGuessing = false;
                             IsUserRating = true;
@@ -246,7 +183,7 @@ namespace FlashCards.ViewModel
                     grantMinusOne = new RelayCommand(
                         arg =>
                         {
-                            model.UpdateWordKnowledge(SaveProgres(-1));
+                            model.UpdateFlipCardKnowledge(SaveProgres(-1));
                             GetNewWord();
                             // Zmiana stanu na zgadywanie
                             IsUserGuessing = true;
@@ -272,7 +209,7 @@ namespace FlashCards.ViewModel
                     grantPlusOne = new RelayCommand(
                         arg =>
                         {
-                            model.UpdateWordKnowledge(SaveProgres(1));
+                            model.UpdateFlipCardKnowledge(SaveProgres(1));
                             GetNewWord();
                             // Zmiana stanu na zgadywanie
                             IsUserGuessing = true;
@@ -298,7 +235,7 @@ namespace FlashCards.ViewModel
                     grantPlusThree = new RelayCommand(
                         arg =>
                         {
-                            model.UpdateWordKnowledge(SaveProgres(3));
+                            model.UpdateFlipCardKnowledge(SaveProgres(3));
                             GetNewWord();
                             // Zmiana stanu na zgadywanie
                             IsUserGuessing = true;
@@ -324,8 +261,8 @@ namespace FlashCards.ViewModel
                     goBack = new RelayCommand(
                         arg =>
                         {
-                            // Wrzucamy false aby wrócić do zakładki języków
-                            Mediator.Notify("BackFromTrain1", false);
+                            // Wrzucamy true aby wrócić do zakładki fiszek
+                            Mediator.Notify("BackFromTrainFC", true);
                         },
                         arg => true
                         );

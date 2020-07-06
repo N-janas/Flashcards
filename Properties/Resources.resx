@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="add_deck" xml:space="preserve">
-    <value>INSERT INTO `deck` (`DeckName`) VALUES</value>
+    <value>INSERT INTO `deck` (`DeckName`) VALUES (@deckName);</value>
     <comment>dodanie talii</comment>
   </data>
   <data name="add_flip_card" xml:space="preserve">
-    <value>INSERT INTO `flipcard` (`FrontContent`, `BackContent`, `ID_Deck`) VALUES</value>
+    <value>INSERT INTO `flipcard` (`FrontContent`, `BackContent`, `ID_Deck`) VALUES (@frontC, @backC, @idD);</value>
     <comment>dodanie fiszki</comment>
   </data>
   <data name="add_flip_card_knowledge" xml:space="preserve">
@@ -130,7 +130,7 @@
     <comment>dodanie znajomości fiszki</comment>
   </data>
   <data name="add_user" xml:space="preserve">
-    <value>INSERT INTO `users` (`Name`, `Surname`) VALUES</value>
+    <value>INSERT INTO `users` (`Name`, `Surname`) VALUES (@uName, @uSurname);</value>
     <comment>dopisanie nowego użytkownika aplikacji</comment>
   </data>
   <data name="add_word_knowledge" xml:space="preserve">
@@ -176,17 +176,5 @@
   <data name="delete_flipCard_knowledge" xml:space="preserve">
     <value>DELETE FROM `flipcardknowledge` WHERE ID=</value>
     <comment>kasowanie poziomu nauki flipcarda</comment>
-  </data>
-  <data name="edit_flip_card" xml:space="preserve">
-    <value />
-    <comment>zaktualizowanie fiszki</comment>
-  </data>
-  <data name="edit_flip_card_knowledge" xml:space="preserve">
-    <value />
-    <comment>zaktualizowanie poziomu znajomości fiszki</comment>
-  </data>
-  <data name="edit_word_knowledge" xml:space="preserve">
-    <value />
-    <comment>zaktualizowanie poziomu znajomosci</comment>
   </data>
 </root>

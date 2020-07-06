@@ -23,7 +23,7 @@
                     <RowDefinition Height="8*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <TextBox Margin="10" TextAlignment="Center" FontSize="17" Text="{Binding EfcardVM.DeckTitle}" VerticalAlignment="Bottom"/>
+                    <TextBox Margin="10" TextAlignment="Center" FontSize="15" Text="{Binding EfcardVM.DeckTitle}" VerticalAlignment="Bottom" MaxLength="60"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <ListBox Margin="20" Background="LightGray" ItemsSource="{Binding EfcardVM.SetOfFlipCards}"
@@ -71,10 +71,10 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <TextBox Margin="10" Text="{Binding EfcardVM.Front}" TextAlignment="Center"/>
+                            <TextBox Margin="10" Text="{Binding EfcardVM.Front}" TextAlignment="Center" MaxLength="40"/>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBox Margin="10" Text="{Binding EfcardVM.Back}" TextAlignment="Center" />
+                            <TextBox Margin="10" Text="{Binding EfcardVM.Back}" TextAlignment="Center" MaxLength="40"/>
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="2">

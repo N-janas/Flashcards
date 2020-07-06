@@ -4,29 +4,17 @@
 winexe
 C#
 .cs
-C:\VSC Projects\C#\POiG\FlashCards\obj\Debug\
+C:\Users\njana\Desktop\Flashcards\obj\Debug\
 FlashCards
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
-C:\Users\admin\source\repos\Fiszki\App.xaml
-4122330710
+C:\Users\njana\Desktop\Flashcards\App.xaml
+6493337317
 
-372090099832
-1271533361047
-=======
-C:\VSC Projects\C#\POiG\FlashCards\App.xaml
-5-1104098928
-
-40-1957586080
-127249653921
-<<<<<<< HEAD
->>>>>>> 699e4a430fa9cb8da235e4e4893b84166a30c470
-View\LanguageTraining.xaml;View\LoggingPage.xaml;View\MainWindow.xaml;View\Tabs.xaml;
-=======
-View\EditFlaszkardView.xaml;View\LanguageTraining.xaml;View\LoggingPage.xaml;View\MainWindow.xaml;View\Tabs.xaml;
->>>>>>> 70e7e0065379b85316801b013536527bb239d3f9
+43979795175
+127-1492559842
+View\EditFlaszkardView.xaml;View\FlipCardTraining.xaml;View\LanguageTraining.xaml;View\LoggingPage.xaml;View\MainWindow.xaml;View\Tabs.xaml;
 
 True
 

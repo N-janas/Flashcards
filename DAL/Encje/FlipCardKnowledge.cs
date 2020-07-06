@@ -41,6 +41,19 @@ namespace FlashCards.DAL.Encje
         {
             return $"({Id_User}, {Id_FlipCard}, {Knowledge})";
         }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var fk = obj as FlipCardKnowledge;
+            if (fk is null) return false;
+            if (Id_FlipCard != fk.Id_FlipCard) return false;
+            if (Id_User != fk.Id_User) return false;
+            return true;
+        }
         #endregion
     }
 }

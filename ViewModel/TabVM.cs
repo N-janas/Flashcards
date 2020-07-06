@@ -9,6 +9,8 @@ namespace FlashCards.ViewModel
     using FlashCards.Model;
     class TabVM : BaseViewModel
     {
+        // Stan służący za określanie do jakiego widoku
+        // zakładki mamy powrócić (fiszki / języki)
         private bool isSelectedFlipCardTab = false;
         public bool IsSelectedFlipCardTab
         {

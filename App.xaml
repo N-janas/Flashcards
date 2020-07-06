@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type viewmodels:EditFlaszkardViewModel}">
             <views:EditFlaszkardView/>
         </DataTemplate>
-        
+
+        <DataTemplate DataType="{x:Type viewmodels:FlipCardTrainingVM}">
+            <views:FlipCardTraining/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

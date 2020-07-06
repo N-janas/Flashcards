@@ -35,6 +35,7 @@ namespace FlashCards.ViewModel
             }
         }
 
+        // Referencje Vm'ów
         private LoggingPageViewModel loginPage = null;
         public LoggingPageViewModel LoginPage
         {
@@ -62,6 +63,13 @@ namespace FlashCards.ViewModel
             get { return efcardVM; }
             set { efcardVM = value; onPropertyChanged(nameof(EfcardVM)); }
         }
+
+        private FlipCardTrainingVM flipTrain = null;
+        public FlipCardTrainingVM FlipTrain
+        {
+            get { return flipTrain; }
+            set { flipTrain = value; onPropertyChanged(nameof(FlipTrain)); }
+        }
         #endregion
 
         public MainViewModel()
@@ -71,12 +79,14 @@ namespace FlashCards.ViewModel
             TabPage = new TabVM();
             LangTrain = new LanguageTrainingVM();
             EfcardVM = new EditFlaszkardViewModel();
+            FlipTrain = new FlipCardTrainingVM();
 
             // Wpisanie ich na miejsca w liście
             Vms.Add(LoginPage);
             Vms.Add(TabPage);
             Vms.Add(LangTrain);
             Vms.Add(EfcardVM);
+            Vms.Add(FlipTrain);
 
             this._actualViewModel = LoginPage; // Starter VM
 
@@ -85,19 +95,19 @@ namespace FlashCards.ViewModel
             Mediator.Subscribe("GoToTabsPage", GoToTabsScreen);
             // Logout
             Mediator.Subscribe("Logout", BackToLoginPage);
-            // Mediator train1
+            // Mediator Train Languages
             Mediator.Subscribe("TrainLangs", TrainPredefinedLangs);
-            // Mediator GoBack from train1
+            // Mediator GoBack from Train Languages
             Mediator.Subscribe("BackFromTrain1", GoBackFromTrainLang);
 
             // Mediator EditFlashCard
             Mediator.Subscribe("EditFlashCard", GoToEditionScreen);
             // Mediator GoBack from edition
             Mediator.Subscribe("BackFromEditionFC", GoBackFromEditionScreen);
-            // Mediator train2
-
-            // Mediator GoBack from train2
-
+            // Mediator Train FlipCards
+            Mediator.Subscribe("TrainFC", TrainFlipCards);
+            // Mediator GoBack from Train FlipCards
+            Mediator.Subscribe("BackFromTrainFC", GoBackFromTrainFlipcards);
         }
 
         #region Metody
@@ -105,8 +115,8 @@ namespace FlashCards.ViewModel
         {
             if (!Vms.Contains(viewModel))
                 Vms.Add(viewModel);
-
-            ActualViewModel = Vms.FirstOrDefault(vm => vm == viewModel); // hmm ?
+            // Zwracamy pierwszą wartość, która spełnia warunek przyrównania do szukanego vm'a
+            ActualViewModel = Vms.FirstOrDefault(vm => vm == viewModel);
         }
 
         private void GoToEditionScreen(object obj)
@@ -166,7 +176,29 @@ namespace FlashCards.ViewModel
             // Powrót do ekranu zakładek
             ChangeViewModel(Vms[1]);
         }
+        private void TrainFlipCards(object obj)
+        {
+            List<List<TrainData>> daneTreningowe = obj as List<List<TrainData>>;
 
+            // Przekazanie nowych danych treningowych nowemu oknu
+            FlipTrain = new FlipCardTrainingVM(
+                model,
+                daneTreningowe[0].Cast<FlipCard>().ToList(),
+                daneTreningowe[1].Cast<FlipCardWithKnowledge>().ToList(),
+                (sbyte)TabPage.LoggedUser,
+                TabPage.FcardTabVM.SelectedDeck
+                );
+            ChangeViewModel(Vms[4]);
+        }
+
+        private void GoBackFromTrainFlipcards(object obj)
+        {
+            // ustawienie odpowiedniej zakładki wracając
+            bool selection = (bool)obj;
+            TabPage.IsSelectedFlipCardTab = selection;
+            // Powrót do ekranu zakładek
+            ChangeViewModel(Vms[1]);
+        }
         #endregion
     }
 }

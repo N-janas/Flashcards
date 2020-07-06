@@ -35,12 +35,24 @@ namespace FlashCards.DAL.Zbiory
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand cmd = new MySqlCommand($"{query.add_flip_card} {fc.ToInsert()}", connection);
-                connection.Open();
-                var id = cmd.ExecuteNonQuery();
-                state = true;
-                fc.Id = (uint)cmd.LastInsertedId;
-                connection.Close();
+                MySqlCommand cmd = new MySqlCommand(query.add_flip_card, connection);
+                // Parametryczny string do zabezpieczenia przed SQL Injection
+                cmd.Parameters.AddWithValue("@frontC", fc.FrontContent);
+                cmd.Parameters.AddWithValue("@backC", fc.BackContent);
+                cmd.Parameters.AddWithValue("@idD", fc.Id_Deck);
+
+                try
+                {
+                    connection.Open();
+                    var id = cmd.ExecuteNonQuery();
+                    state = true;
+                    fc.Id = (uint)cmd.LastInsertedId;
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             return state;
         }
@@ -50,13 +62,25 @@ namespace FlashCards.DAL.Zbiory
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                string EDYTUJ_FLIPCARD = $"UPDATE flipcard SET FrontContent='{fpc.FrontContent}', BackContent='{fpc.BackContent}' WHERE ID={idFpc} AND ID_Deck={idDeck}";
+                string EDYTUJ_FLIPCARD = $"UPDATE flipcard SET FrontContent=@frontC, BackContent=@backC WHERE ID=@idF AND ID_Deck=@idD";
                 MySqlCommand cmd = new MySqlCommand(EDYTUJ_FLIPCARD, connection);
-                connection.Open();
-                var n = cmd.ExecuteNonQuery();
-                if (n == 1) state = true;
+                cmd.Parameters.AddWithValue("@frontC", fpc.FrontContent);
+                cmd.Parameters.AddWithValue("@backC", fpc.BackContent);
+                cmd.Parameters.AddWithValue("@idF", idFpc);
+                cmd.Parameters.AddWithValue("@idD", idDeck);
 
-                connection.Close();
+                try
+                {
+                    connection.Open();
+                    var n = cmd.ExecuteNonQuery();
+                    if (n == 1) state = true;
+
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             return state;
         }

@@ -36,12 +36,22 @@ namespace FlashCards.DAL.Zbiory
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand cmd = new MySqlCommand($"{query.add_deck} {d.ToInsert()}", connection);
-                connection.Open();
-                var id = cmd.ExecuteNonQuery();
-                state = true;
-                d.Id = (sbyte)cmd.LastInsertedId;
-                connection.Close();
+                MySqlCommand cmd = new MySqlCommand(query.add_deck, connection);
+                // Parametryczny string do zabezpieczenia przed SQL Injection
+                cmd.Parameters.AddWithValue("@deckName", d.ToString());
+
+                try
+                {
+                    connection.Open();
+                    var id = cmd.ExecuteNonQuery();
+                    state = true;
+                    d.Id = (sbyte)cmd.LastInsertedId;
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             return state;
         }
@@ -51,13 +61,24 @@ namespace FlashCards.DAL.Zbiory
             bool state = false;
             using (var connection = DBConnection.Instance.Connection)
             {
-                string EDYTUJ_NAZWE_TALII = $"UPDATE deck SET DeckName='{deck.DeckName}' WHERE ID={idDeck}";
+                string EDYTUJ_NAZWE_TALII = $"UPDATE deck SET DeckName=@decName WHERE ID=@idD";
                 MySqlCommand cmd = new MySqlCommand(EDYTUJ_NAZWE_TALII, connection);
-                connection.Open();
-                var n = cmd.ExecuteNonQuery();
-                if (n == 1) state = true;
+                // Parametryczny string do zabezpieczenia przed SQL Injection
+                cmd.Parameters.AddWithValue("@decName", deck.DeckName);
+                cmd.Parameters.AddWithValue("@idD", idDeck);
 
-                connection.Close();
+                try
+                {
+                    connection.Open();
+                    var n = cmd.ExecuteNonQuery();
+                    if (n == 1) state = true;
+
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             return state;
         }

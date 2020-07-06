@@ -100,7 +100,6 @@ namespace FlashCards.ViewModel
         }
         private void Edit(object obj)
         {
-            // is selected if exist nowe trim 
             if (SelectedFlipCard != null)
             {
                 if (!string.IsNullOrEmpty(Front.Trim()) && !string.IsNullOrEmpty(Back.Trim()))

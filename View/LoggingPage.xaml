@@ -50,8 +50,8 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="lub wpisz istniejącego użytkownika albo dodaj nowego" Margin="10" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
-            <TextBox Grid.Row="1" Margin="10" Text="{Binding Path=LoginPage.Imie, Mode=TwoWay}" FontStyle="Italic"/>
-            <TextBox Grid.Row="2" Margin="10" Text="{Binding Path=LoginPage.Nazwisko, Mode=TwoWay}" FontStyle="Italic"/>
+            <TextBox Grid.Row="1" Margin="10" Text="{Binding Path=LoginPage.Imie, Mode=TwoWay}" FontStyle="Italic" MaxLength="30"/>
+            <TextBox Grid.Row="2" Margin="10" Text="{Binding Path=LoginPage.Nazwisko, Mode=TwoWay}" FontStyle="Italic" MaxLength="30"/>
 
 
         </Grid>

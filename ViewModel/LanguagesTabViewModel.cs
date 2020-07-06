@@ -190,7 +190,7 @@ namespace FlashCards.ViewModel
 
             sbyte tempDifference = difference;
             sbyte differenceDecreaser = 1;
-            while(tempDifference > 5)
+            while (tempDifference > 5)
             {
                 tempDifference /= 2;
                 differenceDecreaser += 1;
@@ -230,24 +230,14 @@ namespace FlashCards.ViewModel
 
             queue = Shuffle(queue);
 
-            foreach (Word item in queue)
-            {
-                Debug.WriteLine(item);
-            }
+            //foreach (Word item in queue)
+            //{
+            //    Debug.WriteLine(item);
+            //}
+            //Console.WriteLine("-------------------------");
 
             return queue;
         }
-
-        public bool ValidateString(string str)
-        {
-            foreach(char c in str)
-            {
-                if (c == ';' || c == '\'' || c == '-')
-                    return false;
-            }
-            return true;
-        }
-
         #endregion
 
         #region Komendy
@@ -263,10 +253,10 @@ namespace FlashCards.ViewModel
                     train = new RelayCommand(
                         arg =>
                         {
-                            // Check if all items choosed
+                            // Sprawdź czy wszystkie parametry wybrane
                             if (SelectedLangZ != null && SelectedLangNa != null && SelectedDifficulty != null)
                             {
-                                // Check if Z and Na isnt the same 
+                                // Sprawdź czy języki są różne
                                 // Id check bo nie ma override Equals
                                 if (SelectedLangZ.Id != SelectedLangNa.Id)  
                                 {

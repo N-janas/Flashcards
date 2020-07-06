@@ -41,7 +41,6 @@ namespace FlashCards.DAL.Encje
             return $"({Id_word_front}, {Id_word_back}, {Id_user}, {Knowledge})";
         }
 
-        // TMP Equals ?
         public override int GetHashCode()
         {
             return base.GetHashCode();
