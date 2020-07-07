@@ -29,7 +29,6 @@ namespace FlashCards.ViewModel
         {
             this.model = model;
             ListOfUsers = this.model.Users;
-            // Not null
             this._imie = "";
             this._nazwisko = "";
         }
