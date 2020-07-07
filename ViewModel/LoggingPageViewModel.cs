@@ -81,7 +81,7 @@ namespace FlashCards.ViewModel
         }
 
         // Ładuje dane użytkownika przy zmianach kontrolki
-        private void list_SelectionChanged(object sender)
+        private void ListSelectionChanged(object sender)
         {
             if (SelectedUserFromList != null)
             {
@@ -100,11 +100,10 @@ namespace FlashCards.ViewModel
                 if (_loadUser == null)
                 {
                     _loadUser = new RelayCommand(
-                        list_SelectionChanged,
+                        ListSelectionChanged,
                         arg => true
                         );
                 }
-
                 return _loadUser;
             }
         }
@@ -201,30 +200,30 @@ namespace FlashCards.ViewModel
                 if (_zaloguj == null)
                 {
                     _zaloguj = new RelayCommand(
-                       arg =>
-                       {
-                           bool IsImieValid = !(string.IsNullOrEmpty(Imie.Trim()));
-                           bool IsNazwiskoValid = !(string.IsNullOrEmpty(Nazwisko.Trim()));
+                    arg =>
+                        {
+                            bool IsImieValid = !(string.IsNullOrEmpty(Imie.Trim()));
+                            bool IsNazwiskoValid = !(string.IsNullOrEmpty(Nazwisko.Trim()));
 
-                           if (IsNazwiskoValid && IsImieValid)
-                           {
+                            if (IsNazwiskoValid && IsImieValid)
+                            {
                                // Tworzony potem user więc trim jest wewnątrz
                                // Sprawdzamy czy user jest w bazie jeśli tak to mamy jego id jeśli nie to null
-                               sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
-                               if (userTrial != null)
-                               {
-                                   ClearForm();
-                                   Mediator.Notify("GoToTabsPage", userTrial);
-                               }
-                               else
-                               {
-                                   System.Windows.MessageBox.Show("Użytkownik nie istnieje");
-                               }
-                           }
-                           else
-                               System.Windows.MessageBox.Show("Niepoprawne dane");
-                       },
-                       arg => true
+                                sbyte? userTrial = model.PassUserIdIfExists(Imie, Nazwisko);
+                                if (userTrial != null)
+                                {
+                                    ClearForm();
+                                    Mediator.Notify("GoToTabsPage", userTrial);
+                                }
+                                else
+                                {
+                                    System.Windows.MessageBox.Show("Użytkownik nie istnieje");
+                                }
+                            }
+                            else
+                                System.Windows.MessageBox.Show("Niepoprawne dane");
+                        },
+                        arg => true
                     );
                 }
                 return _zaloguj;

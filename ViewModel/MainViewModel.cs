@@ -99,7 +99,6 @@ namespace FlashCards.ViewModel
             Mediator.Subscribe("TrainLangs", TrainPredefinedLangs);
             // Mediator GoBack from Train Languages
             Mediator.Subscribe("BackFromTrain1", GoBackFromTrainLang);
-
             // Mediator EditFlashCard
             Mediator.Subscribe("EditFlashCard", GoToEditionScreen);
             // Mediator GoBack from edition
@@ -118,7 +117,6 @@ namespace FlashCards.ViewModel
             // Zwracamy pierwszą wartość, która spełnia warunek przyrównania do szukanego vm'a
             ActualViewModel = Vms.FirstOrDefault(vm => vm == viewModel);
         }
-
         private void GoToEditionScreen(object obj)
         {
             // przesłanie talii do edycji
@@ -155,8 +153,8 @@ namespace FlashCards.ViewModel
         {
             List<List<TrainData>> daneTreningowe = obj as List<List<TrainData>>;
 
-            // Przekazanie nowych danych treningowych nowemu oknu
-            LangTrain = new LanguageTrainingVM(
+                // Przekazanie nowych danych treningowych nowemu oknu
+                LangTrain = new LanguageTrainingVM(
                 model,
                 daneTreningowe[0].Cast<Word>().ToList(),
                 daneTreningowe[1].Cast<Word>().ToList(),
